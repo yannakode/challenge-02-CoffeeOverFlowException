@@ -24,6 +24,7 @@
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="03ab50ca-d0b5-40a0-bd95-f2fffbfd4c09" dataset="db_ecommerce.products_tb" active-filter-id="" />
+    <filter-actions connection-id="03ab50ca-d0b5-40a0-bd95-f2fffbfd4c09" dataset="db_ecommerce.flyway_schema_history" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />

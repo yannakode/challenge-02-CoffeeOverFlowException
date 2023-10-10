@@ -1,5 +1,6 @@
 package com.compassuol.sp.challenge.msproducts.service.impl;
 
+import com.compassuol.sp.challenge.msproducts.exceptions.customExceptions.InvalidDataException;
 import com.compassuol.sp.challenge.msproducts.model.dto.ProductRequestDto;
 import com.compassuol.sp.challenge.msproducts.model.dto.ProductResponseDto;
 import com.compassuol.sp.challenge.msproducts.model.entity.Product;
@@ -16,7 +17,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    @Autowired
+
     private final ProductRepository productRepository;
     private final ProductDtoAssembler assembler;
 
@@ -40,6 +41,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDto createProduct(ProductRequestDto productRequestDTO) {
         var product = assembler.toModel(productRequestDTO);
+
+        if (product.getDescription().length() < 10) throw new InvalidDataException("O campo description deve conter 10 ou mais caracteres.", "description");
+        if(product.getName() == null || product.getName().length() < 1) throw new InvalidDataException("O campo name não pode estar vazio.", "name");
+        if(product.getValue() <= 0) throw new InvalidDataException("O campo value precisa ser maior que zero.", "value");
+
         var newProduct = productRepository.save(product);
         return assembler.toDto(newProduct);
     }

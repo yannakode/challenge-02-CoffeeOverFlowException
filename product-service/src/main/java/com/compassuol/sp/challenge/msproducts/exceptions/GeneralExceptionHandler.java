@@ -19,7 +19,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         error.setCode(HttpStatus.BAD_REQUEST.value());
         error.setStatus(HttpStatus.BAD_REQUEST.name());
         error.setMessage(ex.getMessage());
-        error.setDetails(new DetailsProductErrorResponse(ex.getFields(), ex.getMessage()));
+        error.setDetails(new DetailsProductErrorResponse(ex.getField(), ex.getMessage()));
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
@@ -43,4 +43,5 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
 }

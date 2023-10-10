@@ -7,9 +7,9 @@ import lombok.Setter;
 @Setter
 public class InvalidDataException extends RuntimeException{
 
-    private String fields;
+    private String field;
     public InvalidDataException(String message, String fields) {
         super(message);
-        this.fields = fields;
+        this.field = fields;
     }
 }
