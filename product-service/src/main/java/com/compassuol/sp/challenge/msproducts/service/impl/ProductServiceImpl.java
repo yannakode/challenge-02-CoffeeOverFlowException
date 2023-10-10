@@ -35,7 +35,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto getProductById(long productId) {
-        return null;
+        var product = productRepository.getReferenceById(productId);
+        return assembler.toDto(product);
     }
 
     @Override
