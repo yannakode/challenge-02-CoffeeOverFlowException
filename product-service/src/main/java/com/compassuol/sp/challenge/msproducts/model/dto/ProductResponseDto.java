@@ -12,4 +12,6 @@ public class ProductResponseDto {
     private String name;
     private Double value;
     private String description;
+    public ProductResponseDto() {
+    }
 }

@@ -8,11 +8,12 @@ import com.compassuol.sp.challenge.msproducts.repository.ProductRepository;
 import com.compassuol.sp.challenge.msproducts.service.ProductService;
 import com.compassuol.sp.challenge.msproducts.service.assembler.ProductDtoAssembler;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -51,8 +52,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDto updateProduct(ProductRequestDto productRequestDTO) {
-        return null;
+    public ProductResponseDto updateProduct(Long productId, ProductRequestDto productRequestDTO) {
+            Optional<Product> productOp = productRepository.findById(productId);
+
+            if(productOp.isEmpty()) throw new InvalidDataException("Product Id not found", "Id");
+            if(productRequestDTO.getName() == null || productRequestDTO.getName().length() < 1) throw new InvalidDataException("The name field cannot be empty.", "name");
+            if(productRequestDTO.getValue() <= 0) throw new InvalidDataException("The value field needs to be greater than zero.", "value");
+            if(productRepository.findByName(productRequestDTO.getName()).isPresent()) throw new DataIntegrityViolationException("Product name already exists");
+
+            Product originalProduct = productOp.get();
+            originalProduct.setValue(productRequestDTO.getValue());
+            originalProduct.setName(productRequestDTO.getName());
+            originalProduct.setDescription(productRequestDTO.getDescription());
+            productRepository.save(originalProduct);
+
+            return assembler.toDto(originalProduct);
     }
 
     @Override
