@@ -5,19 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb11ab2f-e5ab-42da-a14b-23ace1941f31" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/commons/ProductConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/service/ProductServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/controller/ProductControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/repository/ProductRepositoryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/exceptions/GeneralExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/exceptions/GeneralExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/exceptions/customExceptions/InvalidDataException.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/exceptions/customExceptions/InvalidDataException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/model/dto/ProductRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/model/dto/ProductRequestDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/model/dto/ProductResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/model/dto/ProductResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/model/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/model/entity/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/service/impl/ProductServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msorders/MsOrdersApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/commons/ProductConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/commons/ProductConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/service/ProductServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/service/ProductServiceImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,10 +35,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2WXs1wgA8fFgJPwexnyqywZcMbb" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -52,7 +50,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "product",
-    "last_opened_file_path": "/home/joelhenrique/Documentos/Compass/challenge-of-the-week-viii-compass/Second_Challenge/product-service/src/main/resources/db/migration"
+    "last_opened_file_path": "/home/joelhenrique/Documentos/Compass/Compass - practice/week-vi/star-wars-planet-api"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -67,8 +65,8 @@
       <recent name="$PROJECT_DIR$/product-service/src/main/resources/db" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductServiceImplTest.createProduct_WithInvalidDescription_ThrowsException">
-    <configuration name="com.compassuol.sp.challenge.msproducts.ProductApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.ProductApplication">
+    <configuration name="ProductApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.compassuol.sp.challenge.msproducts.ProductApplication" />
       <module name="msproducts" />
       <extension name="coverage">
@@ -81,65 +79,64 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductServiceImplTest.createProduct_WithInvalidData_ThrowsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ProductControllerTest.createProduct_WithInvalidData_ReturnsCreated" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="msproducts" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.compassuol.sp.challenge.msproducts.service.*" />
+          <option name="PATTERN" value="com.compassuol.sp.challenge.msproducts.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.compassuol.sp.challenge.msproducts.service" />
-      <option name="MAIN_CLASS_NAME" value="com.compassuol.sp.challenge.msproducts.service.ProductServiceImplTest" />
+      <option name="PACKAGE_NAME" value="com.compassuol.sp.challenge.msproducts.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.compassuol.sp.challenge.msproducts.controller.ProductControllerTest" />
+      <option name="METHOD_NAME" value="createProduct_WithInvalidData_ReturnsCreated" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductControllerTest.createProduct_WithValidData_ReturnsCreated" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="msproducts" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.compassuol.sp.challenge.msproducts.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.compassuol.sp.challenge.msproducts.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.compassuol.sp.challenge.msproducts.controller.ProductControllerTest" />
+      <option name="METHOD_NAME" value="createProduct_WithValidData_ReturnsCreated" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="msproducts" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.compassuol.sp.challenge.msproducts.repository.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.compassuol.sp.challenge.msproducts.repository" />
+      <option name="MAIN_CLASS_NAME" value="com.compassuol.sp.challenge.msproducts.repository.ProductRepositoryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductRepositoryTest.createProduct_WithInvalidData_ThrowsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="msproducts" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.compassuol.sp.challenge.msproducts.repository.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.compassuol.sp.challenge.msproducts.repository" />
+      <option name="MAIN_CLASS_NAME" value="com.compassuol.sp.challenge.msproducts.repository.ProductRepositoryTest" />
       <option name="METHOD_NAME" value="createProduct_WithInvalidData_ThrowsException" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductServiceImplTest.createProduct_WithInvalidDescription_ThrowsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="msproducts" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.compassuol.sp.challenge.msproducts.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.compassuol.sp.challenge.msproducts.service" />
-      <option name="MAIN_CLASS_NAME" value="com.compassuol.sp.challenge.msproducts.service.ProductServiceImplTest" />
-      <option name="METHOD_NAME" value="createProduct_WithInvalidDescription_ThrowsException" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductServiceImplTest.createProduct_WithInvalidValue_ThrowsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="msproducts" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.compassuol.sp.challenge.msproducts.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.compassuol.sp.challenge.msproducts.service" />
-      <option name="MAIN_CLASS_NAME" value="com.compassuol.sp.challenge.msproducts.service.ProductServiceImplTest" />
-      <option name="METHOD_NAME" value="createProduct_WithInvalidValue_ThrowsException" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductServiceImplTest.createProduct_withValidData_ReturnsProduct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="msproducts" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.compassuol.sp.challenge.msproducts.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.compassuol.sp.challenge.msproducts.service" />
-      <option name="MAIN_CLASS_NAME" value="com.compassuol.sp.challenge.msproducts.service.ProductServiceImplTest" />
-      <option name="METHOD_NAME" value="createProduct_withValidData_ReturnsProduct" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -147,11 +144,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ProductServiceImplTest.createProduct_WithInvalidDescription_ThrowsException" />
-        <item itemvalue="JUnit.ProductServiceImplTest.createProduct_WithInvalidValue_ThrowsException" />
-        <item itemvalue="JUnit.ProductServiceImplTest.createProduct_WithInvalidData_ThrowsException" />
-        <item itemvalue="JUnit.ProductServiceImplTest.createProduct_withValidData_ReturnsProduct" />
-        <item itemvalue="Application.com.compassuol.sp.challenge.msproducts.ProductApplication" />
+        <item itemvalue="Application.ProductApplication" />
+        <item itemvalue="JUnit.ProductControllerTest.createProduct_WithInvalidData_ReturnsCreated" />
+        <item itemvalue="JUnit.ProductControllerTest.createProduct_WithValidData_ReturnsCreated" />
+        <item itemvalue="JUnit.ProductRepositoryTest.createProduct_WithInvalidData_ThrowsException" />
+        <item itemvalue="JUnit.ProductRepositoryTest" />
       </list>
     </recent_temporary>
   </component>

@@ -24,8 +24,13 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductResponseDto> getall() {
+    public List<ProductResponseDto> getAllProducts() {
         if (true) throw new BusinessException("Teste");
         return productService.getAllProducts();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponseDto>  updateProduct(@PathVariable(value = "id") Long id, @RequestBody @Valid ProductRequestDto productRequestDto){
+        return ResponseEntity.status(HttpStatus.OK).body(productService.updateProduct(id, productRequestDto));
     }
 }
