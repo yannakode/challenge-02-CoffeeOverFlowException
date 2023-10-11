@@ -24,8 +24,8 @@ public class ProductController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<ProductResponseDto> getAllProducts() {
-        if (true) throw new BusinessException("Teste");
         return productService.getAllProducts();
     }
 
