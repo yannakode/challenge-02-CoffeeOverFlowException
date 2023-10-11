@@ -28,4 +28,9 @@ public class ProductController {
         if (true) throw new BusinessException("Teste");
         return productService.getAllProducts();
     }
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductResponseDto> getProductById(@PathVariable Long productId) {
+        var productResponse = productService.getProductById(productId);
+        return ResponseEntity.ok(productResponse);
+    }
 }
