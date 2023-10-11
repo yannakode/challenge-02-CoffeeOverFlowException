@@ -60,7 +60,7 @@ public class ProductServiceImplTest {
         try {
             productService.createProduct(PRODUCT_REQUEST_DTO_INVALID_NAME);
         } catch (InvalidDataException e) {
-            assertThat("O campo name não pode estar vazio.").isEqualTo(e.getMessage());
+            assertThat("The name field cannot be empty.").isEqualTo(e.getMessage());
             assertThat("name").isEqualTo(e.getField());
         }
     }
@@ -77,7 +77,7 @@ public class ProductServiceImplTest {
         try {
             productService.createProduct(PRODUCT_REQUEST_DTO_INVALID_VALUE);
         } catch (InvalidDataException e) {
-            assertThat("O campo value precisa ser maior que zero.").isEqualTo(e.getMessage());
+            assertThat("The value field must be greater than zero.").isEqualTo(e.getMessage());
             assertThat("value").isEqualTo(e.getField());
         }
     }
@@ -94,7 +94,7 @@ public class ProductServiceImplTest {
         try {
             productService.createProduct(PRODUCT_REQUEST_DTO_INVALID_DESCRIPTION);
         } catch (InvalidDataException e) {
-            assertThat("O campo description deve conter 10 ou mais caracteres.").isEqualTo(e.getMessage());
+            assertThat("The description field must contain 10 or more characters.").isEqualTo(e.getMessage());
             assertThat("description").isEqualTo(e.getField());
         }
     }
