@@ -8,7 +8,6 @@ import com.compassuol.sp.challenge.msproducts.repository.ProductRepository;
 import com.compassuol.sp.challenge.msproducts.service.ProductService;
 import com.compassuol.sp.challenge.msproducts.service.assembler.ProductDtoAssembler;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
