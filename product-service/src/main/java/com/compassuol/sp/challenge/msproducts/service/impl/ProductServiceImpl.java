@@ -7,6 +7,7 @@ import com.compassuol.sp.challenge.msproducts.model.entity.Product;
 import com.compassuol.sp.challenge.msproducts.repository.ProductRepository;
 import com.compassuol.sp.challenge.msproducts.service.ProductService;
 import com.compassuol.sp.challenge.msproducts.service.assembler.ProductDtoAssembler;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto getProductById(long productId) {
-        var product = productRepository.getReferenceById(productId);
+        var product = productRepository.findById(productId).orElseThrow(EntityNotFoundException::new);
         return assembler.toDto(product);
     }
 
