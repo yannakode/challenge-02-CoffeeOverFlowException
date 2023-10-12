@@ -4,6 +4,7 @@ import com.compassuol.sp.challenge.msproducts.exceptions.customExceptions.Busine
 import com.compassuol.sp.challenge.msproducts.exceptions.customExceptions.InternalServerErrorException;
 import com.compassuol.sp.challenge.msproducts.exceptions.customExceptions.InvalidDataException;
 import org.springframework.dao.DataIntegrityViolationException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -43,6 +44,17 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         error.setMessage(ex.getMessage());
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ProductErrorResponse> handleEntityNotFoundException(){
+        var httpStatus = HttpStatus.NOT_FOUND;
+        var productErrorResponse = new ProductErrorResponse();
+
+        productErrorResponse.setCode(httpStatus.value());
+        productErrorResponse.setStatus(httpStatus.name());
+        productErrorResponse.setMessage("Product not found!");
+
+        return new ResponseEntity<>(productErrorResponse, httpStatus);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
