@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb11ab2f-e5ab-42da-a14b-23ace1941f31" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/controller/ProductControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/repository/ProductRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/exceptions/GeneralExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/exceptions/GeneralExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/model/dto/ProductRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/model/dto/ProductRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/model/dto/ProductResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/model/dto/ProductResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/model/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/model/entity/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/service/impl/ProductServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/commons/ProductConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/commons/ProductConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/service/ProductServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/test/java/com/compassuol/sp/challenge/msproducts/service/ProductServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/controller/ProductController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,26 +38,37 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "product",
-    "last_opened_file_path": "/home/joelhenrique/Documentos/Compass/Compass - practice/week-vi/star-wars-planet-api"
+    "last_opened_file_path": "/home/joelhenrique/Downloads/challenge-02-CoffeeOverFlowException-get-product-id",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts" />
       <recent name="$PROJECT_DIR$/product-service/src/main/resources/db/migration" />
       <recent name="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/exceptions" />
       <recent name="$PROJECT_DIR$/product-service/src/main/resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/product-service/src/main/resources/db/migration" />
       <recent name="$PROJECT_DIR$/product-service/src/main/resources" />
+      <recent name="$PROJECT_DIR$/product-service/src/main/resources/db/migration" />
       <recent name="$PROJECT_DIR$/product-service/src/main/resources/db" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ProductApplication">
+  <component name="RunManager" selected="Spring Boot.ProductApplication">
     <configuration name="ProductApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.compassuol.sp.challenge.msproducts.ProductApplication" />
       <module name="msproducts" />
@@ -142,6 +145,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ProductApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="msproducts" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.compassuol.sp.challenge.msproducts.ProductApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.ProductApplication" />
@@ -160,7 +171,22 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1696890048858</updated>
+      <workItem from="1697106664845" duration="4223000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
