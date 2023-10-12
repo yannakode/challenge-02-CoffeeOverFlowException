@@ -67,5 +67,14 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
+    public ResponseEntity<ProductErrorResponse> getAllEntityNotFoundException(){
+        var httpStatus = HttpStatus.NOT_FOUND;
+        var productErrorResponse = new ProductErrorResponse();
 
+        productErrorResponse.setCode(httpStatus.value());
+        productErrorResponse.setStatus(httpStatus.name());
+        productErrorResponse.setMessage("products not found!");
+
+        return new ResponseEntity<>(productErrorResponse, httpStatus);
+    }
 }

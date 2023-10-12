@@ -1,10 +1,9 @@
 package com.compassuol.sp.challenge.msproducts.controller;
 
-import com.compassuol.sp.challenge.msproducts.exceptions.customExceptions.BusinessException;
+
 import com.compassuol.sp.challenge.msproducts.model.dto.ProductRequestDto;
 import com.compassuol.sp.challenge.msproducts.model.dto.ProductResponseDto;
 import com.compassuol.sp.challenge.msproducts.service.impl.ProductServiceImpl;
-import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,7 +24,6 @@ public class ProductController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     public List<ProductResponseDto> getAllProducts() {
         return productService.getAllProducts();
     }

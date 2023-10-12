@@ -1,13 +1,10 @@
 package com.compassuol.sp.challenge.msproducts.repository;
 
-import static com.compassuol.sp.challenge.msproducts.commons.ProductConstants.*;
 
-import com.compassuol.sp.challenge.msproducts.model.dto.ProductResponseDto;
+
 import com.compassuol.sp.challenge.msproducts.model.entity.Product;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import com.compassuol.sp.challenge.msproducts.service.assembler.ProductDtoAssembler;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -31,8 +28,7 @@ public class ProductRepositoryTest {
 
         assertThat(sut.getName()).isEqualTo(product.getName());
         assertThat(sut.getValue()).isEqualTo(product.getValue());
-        assertThat(sut.getDescription()).isEqualTo(product.getDescription());
-    }
+        assertThat(sut.getDescription()).isEqualTo(product.getDescription());}
 
     @Test
     public void createProduct_WithInvalidData_ThrowsException() {
