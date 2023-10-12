@@ -6,7 +6,6 @@ import com.compassuol.sp.challenge.msproducts.exceptions.customExceptions.Invali
 import com.compassuol.sp.challenge.msproducts.model.dto.ProductResponseDto;
 import com.compassuol.sp.challenge.msproducts.service.impl.ProductServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -45,4 +45,15 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ProductErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        ProductErrorResponse error = new ProductErrorResponse();
+
+        error.setCode(HttpStatus.CONFLICT.value());
+        error.setStatus(HttpStatus.CONFLICT.name());
+        error.setMessage(ex.getMessage());
+
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
 }
