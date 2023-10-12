@@ -20,7 +20,6 @@ public class ProductController {
     private final ProductServiceImpl productService;
 
     @PostMapping
-    @Operation(summary = "Persist in db new products.")
     public ResponseEntity<ProductResponseDto> createProduct(@RequestBody @Valid ProductRequestDto productRequestDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.createProduct(productRequestDTO));
     }
