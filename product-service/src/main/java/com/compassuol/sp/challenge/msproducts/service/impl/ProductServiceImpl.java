@@ -9,6 +9,7 @@ import com.compassuol.sp.challenge.msproducts.service.ProductService;
 import com.compassuol.sp.challenge.msproducts.service.assembler.ProductDtoAssembler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -72,5 +73,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public boolean deleteProduct() {
         return false;
+    }
+
+    public void delete(Long id) {
+        productRepository.deleteById(id);
     }
 }
