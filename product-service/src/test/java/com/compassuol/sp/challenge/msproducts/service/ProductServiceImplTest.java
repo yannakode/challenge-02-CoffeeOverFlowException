@@ -8,16 +8,18 @@ import com.compassuol.sp.challenge.msproducts.model.entity.Product;
 import com.compassuol.sp.challenge.msproducts.repository.ProductRepository;
 import com.compassuol.sp.challenge.msproducts.service.assembler.ProductDtoAssembler;
 import com.compassuol.sp.challenge.msproducts.service.impl.ProductServiceImpl;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceImplTest {
@@ -97,5 +99,24 @@ public class ProductServiceImplTest {
             assertThat("O campo description deve conter 10 ou mais caracteres.").isEqualTo(e.getMessage());
             assertThat("description").isEqualTo(e.getField());
         }
+    }
+    @Test
+    public void getProductById_WithValidId_ReturnsProduct(){
+        var productTest = PRODUCT;
+        when(productRepository.findById(1L)).thenReturn(Optional.of(productTest));
+
+        var systemUnderTest = productService.getProductById(1L);
+
+        assertThat(productDtoAssembler.toDto(productTest)).isEqualTo(systemUnderTest);
+    }
+
+    @Test
+    public void getProductById_WithInvalidId_Throwable() {
+        when(productRepository.findById(1L)).thenReturn(Optional.empty());
+
+        var systemUnderTest = assertThrows(EntityNotFoundException.class,
+                () -> productService.getProductById(1L));
+
+        assertThat(systemUnderTest.getClass()).isEqualTo(EntityNotFoundException.class);
     }
 }
