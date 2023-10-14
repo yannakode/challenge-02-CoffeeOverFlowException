@@ -16,6 +16,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -29,6 +31,12 @@ public class ProductServiceImplTest {
     private ProductRepository productRepository;
     @Mock
     private ProductDtoAssembler productDtoAssembler;
+
+    @Mock
+    private Product product;
+
+    @Mock
+    private ProductResponseDto productResponseDto;
 
     @Test
     public void createProduct_withValidData_ReturnsProduct() {
@@ -62,7 +70,7 @@ public class ProductServiceImplTest {
         try {
             productService.createProduct(PRODUCT_REQUEST_DTO_INVALID_NAME);
         } catch (InvalidDataException e) {
-            assertThat("O campo name não pode estar vazio.").isEqualTo(e.getMessage());
+            assertThat("The name field cannot be empty.").isEqualTo(e.getMessage());
             assertThat("name").isEqualTo(e.getField());
         }
     }
@@ -79,7 +87,7 @@ public class ProductServiceImplTest {
         try {
             productService.createProduct(PRODUCT_REQUEST_DTO_INVALID_VALUE);
         } catch (InvalidDataException e) {
-            assertThat("O campo value precisa ser maior que zero.").isEqualTo(e.getMessage());
+            assertThat("The value field must be greater than zero.").isEqualTo(e.getMessage());
             assertThat("value").isEqualTo(e.getField());
         }
     }
@@ -96,7 +104,7 @@ public class ProductServiceImplTest {
         try {
             productService.createProduct(PRODUCT_REQUEST_DTO_INVALID_DESCRIPTION);
         } catch (InvalidDataException e) {
-            assertThat("O campo description deve conter 10 ou mais caracteres.").isEqualTo(e.getMessage());
+            assertThat("The description field must contain 10 or more characters.").isEqualTo(e.getMessage());
             assertThat("description").isEqualTo(e.getField());
         }
     }
@@ -119,4 +127,17 @@ public class ProductServiceImplTest {
 
         assertThat(systemUnderTest.getClass()).isEqualTo(EntityNotFoundException.class);
     }
+
+    @Test
+    public void getAllProducts_WithValidRequest_ReturnsProducts(){
+        Product product= new Product(1L,"product",10.0,"product description");
+        var productTestToDto = productDtoAssembler.toDto(new Product(1L,"product",10.0,"product description"));
+        when(productRepository.findAll()).thenReturn(List.of(product));
+
+        assertThat(productTestToDto).isEqualTo(product);
+
+    }
+
 }
+
+

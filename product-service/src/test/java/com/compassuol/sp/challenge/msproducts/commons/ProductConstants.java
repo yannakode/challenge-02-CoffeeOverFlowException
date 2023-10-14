@@ -11,4 +11,5 @@ public class ProductConstants {
     public static final ProductRequestDto PRODUCT_REQUEST_DTO_INVALID_NAME = new ProductRequestDto("", 10.0, "Product Description");
     public static final ProductRequestDto PRODUCT_REQUEST_DTO_INVALID_VALUE = new ProductRequestDto("Product name", -1D, "Product Description");
     public static final ProductRequestDto PRODUCT_REQUEST_DTO_INVALID_DESCRIPTION = new ProductRequestDto("Product name", -1D, "Product1");
+
 }

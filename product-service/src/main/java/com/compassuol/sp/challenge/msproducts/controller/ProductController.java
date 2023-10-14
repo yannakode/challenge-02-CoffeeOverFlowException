@@ -1,6 +1,6 @@
 package com.compassuol.sp.challenge.msproducts.controller;
 
-import com.compassuol.sp.challenge.msproducts.exceptions.customExceptions.BusinessException;
+
 import com.compassuol.sp.challenge.msproducts.model.dto.ProductRequestDto;
 import com.compassuol.sp.challenge.msproducts.model.dto.ProductResponseDto;
 import com.compassuol.sp.challenge.msproducts.service.impl.ProductServiceImpl;
@@ -24,13 +24,18 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductResponseDto> getall() {
-        if (true) throw new BusinessException("Teste");
+    public List<ProductResponseDto> getAllProducts() {
         return productService.getAllProducts();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponseDto>  updateProduct(@PathVariable(value = "id") Long id, @RequestBody @Valid ProductRequestDto productRequestDto){
+        return ResponseEntity.status(HttpStatus.OK).body(productService.updateProduct(id, productRequestDto));
     }
     @GetMapping("/{productId}")
     public ResponseEntity<ProductResponseDto> getProductById(@PathVariable Long productId) {
         var productResponse = productService.getProductById(productId);
         return ResponseEntity.ok(productResponse);
     }
+
 }
