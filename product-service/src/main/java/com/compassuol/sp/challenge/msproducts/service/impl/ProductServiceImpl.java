@@ -7,6 +7,7 @@ import com.compassuol.sp.challenge.msproducts.model.entity.Product;
 import com.compassuol.sp.challenge.msproducts.repository.ProductRepository;
 import com.compassuol.sp.challenge.msproducts.service.ProductService;
 import com.compassuol.sp.challenge.msproducts.service.assembler.ProductDtoAssembler;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -36,16 +37,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto getProductById(long productId) {
-        return null;
+        var product = productRepository.findById(productId).orElseThrow(EntityNotFoundException::new);
+        return assembler.toDto(product);
     }
 
     @Override
     public ProductResponseDto createProduct(ProductRequestDto productRequestDTO) {
         var product = assembler.toModel(productRequestDTO);
 
-        if (product.getDescription().length() < 10) throw new InvalidDataException("O campo description deve conter 10 ou mais caracteres.", "description");
-        if(product.getName() == null || product.getName().length() < 1) throw new InvalidDataException("O campo name não pode estar vazio.", "name");
-        if(product.getValue() <= 0) throw new InvalidDataException("O campo value precisa ser maior que zero.", "value");
+        if (product.getDescription().length() < 10) throw new InvalidDataException("The description field must contain 10 or more characters.", "description");
+        if(product.getName() == null || product.getName().isEmpty()) throw new InvalidDataException("The name field cannot be empty.", "name");
+        if(product.getValue() <= 0) throw new InvalidDataException("The value field must be greater than zero.", "value");
 
         var newProduct = productRepository.save(product);
         return assembler.toDto(newProduct);

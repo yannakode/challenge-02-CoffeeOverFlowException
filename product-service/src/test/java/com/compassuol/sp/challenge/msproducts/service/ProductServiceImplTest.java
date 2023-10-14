@@ -8,15 +8,12 @@ import com.compassuol.sp.challenge.msproducts.model.entity.Product;
 import com.compassuol.sp.challenge.msproducts.repository.ProductRepository;
 import com.compassuol.sp.challenge.msproducts.service.assembler.ProductDtoAssembler;
 import com.compassuol.sp.challenge.msproducts.service.impl.ProductServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,12 +29,6 @@ public class ProductServiceImplTest {
     private ProductRepository productRepository;
     @Mock
     private ProductDtoAssembler productDtoAssembler;
-
-    @Mock
-    private Product product;
-
-    @Mock
-    private ProductResponseDto productResponseDto;
 
     @Test
     public void createProduct_withValidData_ReturnsProduct() {
@@ -121,7 +112,7 @@ public class ProductServiceImplTest {
     }
 
     @Test
-   public void getProductById_WithValidId_ReturnsProduct(){
+    public void getProductById_WithValidId_ReturnsProduct(){
         var productTest = PRODUCT;
         var productTestToDto = productDtoAssembler.toDto(productTest);
 
@@ -132,8 +123,5 @@ public class ProductServiceImplTest {
         ProductResponseDto sut = productService.getProductById(productTest.getId());
 
         assertThat(productTestToDto).isEqualTo(sut);
-
     }
 }
-
-
