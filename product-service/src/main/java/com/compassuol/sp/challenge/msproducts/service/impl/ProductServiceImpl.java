@@ -45,6 +45,9 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponseDto createProduct(ProductRequestDto productRequestDTO) {
         var product = assembler.toModel(productRequestDTO);
 
+        Optional<Product> getNameResponse = productRepository.findByName(product.getName());
+        if (getNameResponse.isPresent()) throw new DataIntegrityViolationException("Product name already exists");
+
         if (product.getDescription().length() < 10) throw new InvalidDataException("The description field must contain 10 or more characters.", "description");
         if(product.getName() == null || product.getName().isEmpty()) throw new InvalidDataException("The name field cannot be empty.", "name");
         if(product.getValue() <= 0) throw new InvalidDataException("The value field must be greater than zero.", "value");
