@@ -53,4 +53,19 @@ public class ProductControllerTest {
         assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(sut.getBody()).isEqualTo(productResponseDto);
     }
+    @Test
+    void updateProduct_withValidData_returnsOk() throws Exception {
+        ProductResponseDto productResponseDto = new ProductResponseDto();
+        productResponseDto.setId(1L);
+        productResponseDto.setName(PRODUCT_REQUEST_DTO.getName());
+        productResponseDto.setValue(PRODUCT_REQUEST_DTO.getValue());
+        productResponseDto.setDescription(PRODUCT_REQUEST_DTO.getDescription());
+
+        when(productService.updateProduct(productResponseDto.getId() ,PRODUCT_REQUEST_DTO)).thenReturn(productResponseDto);
+
+        ResponseEntity<ProductResponseDto> sut = productController.updateProduct(productResponseDto.getId(), PRODUCT_REQUEST_DTO);
+
+        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(sut.getBody()).isEqualTo(productResponseDto);
+    }
 }

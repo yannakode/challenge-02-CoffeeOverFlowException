@@ -6,6 +6,8 @@ import com.compassuol.sp.challenge.msproducts.model.dto.ProductResponseDto;
 import com.compassuol.sp.challenge.msproducts.model.entity.Product;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import com.compassuol.sp.challenge.msproducts.service.assembler.ProductDtoAssembler;
@@ -44,5 +46,36 @@ public class ProductRepositoryTest {
         assertThatThrownBy(() -> productRepository.save(PRODUCT_INVALID_NAME));
         assertThatThrownBy(() -> productRepository.save(PRODUCT_INVALID_VALUE));
         assertThatThrownBy(() -> productRepository.save(PRODUCT_INVALID_DESCRIPTION));
+    }
+
+    @Test
+    public void updateProduct_WithValidData_ReturnsUpdatedProduct() {
+        when(productRepository.save(PRODUCT)).thenReturn(PRODUCT);
+
+        Product sut = productRepository.save(PRODUCT);
+
+        assertThat(sut).isEqualTo(PRODUCT);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setId(sut.getId());
+        updatedProduct.setName("Product name");
+        updatedProduct.setValue(100.0);
+        updatedProduct.setDescription("Description");
+
+        when(productRepository.save(updatedProduct)).thenReturn(updatedProduct);
+
+        Product updatedSut = productRepository.save(updatedProduct);
+
+        assertThat(updatedSut).isEqualTo(updatedProduct);
+    }
+    @Test
+    public void updateProduct_WithInvalidData_ThrowsException() {
+        when(productRepository.save(PRODUCT_INVALID_NAME)).thenThrow(RuntimeException.class);
+        when(productRepository.save(PRODUCT_INVALID_VALUE)).thenThrow(RuntimeException.class);
+        when(productRepository.save(PRODUCT_INVALID_DESCRIPTION)).thenThrow(RuntimeException.class);
+
+        assertThatThrownBy(() -> productRepository.save(PRODUCT_INVALID_NAME)).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> productRepository.save(PRODUCT_INVALID_VALUE)).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> productRepository.save(PRODUCT_INVALID_DESCRIPTION)).isInstanceOf(RuntimeException.class);
     }
 }
