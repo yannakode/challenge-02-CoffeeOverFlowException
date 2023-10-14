@@ -103,12 +103,15 @@ public class ProductServiceImplTest {
 
     @Test
     public void getAllProducts_WithValidRequest_ReturnsProducts(){
-        Product product= new Product(1L,"product",10.0,"product description");
-        var productTestToDto = productDtoAssembler.toDto(new Product(1L,"product",10.0,"product description"));
-        when(productRepository.findAll()).thenReturn(List.of(product));
+        when(productRepository.findAll()).thenReturn(List.of(PRODUCT));
+        when(productDtoAssembler.toDto(PRODUCT)).thenReturn(PRODUCT_RESPONSE_DTO);
 
-        assertThat(productTestToDto).isEqualTo(product);
+        List<ProductResponseDto> sut = productService.getAllProducts();
 
+        assertThat(sut.get(0).getId()).isEqualTo(PRODUCT.getId());
+        assertThat(sut.get(0).getName()).isEqualTo(PRODUCT.getName());
+        assertThat(sut.get(0).getValue()).isEqualTo(PRODUCT.getValue());
+        assertThat(sut.get(0).getDescription()).isEqualTo(PRODUCT.getDescription());
     }
 
     @Test

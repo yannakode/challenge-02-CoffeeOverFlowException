@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponseDto> getAllProducts() {
         List<Product> response = productRepository.findAll();
-        ArrayList<ProductResponseDto> productsList = new ArrayList<>();
+        List<ProductResponseDto> productsList = new ArrayList<>();
 
         response.forEach(product -> {
             productsList.add(assembler.toDto(product));
