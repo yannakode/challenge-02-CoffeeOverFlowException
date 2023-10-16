@@ -1,26 +1,14 @@
 package com.compassuol.sp.challenge.msproducts.repository;
 
 import static com.compassuol.sp.challenge.msproducts.commons.ProductConstants.*;
-
-import com.compassuol.sp.challenge.msproducts.model.dto.ProductResponseDto;
 import com.compassuol.sp.challenge.msproducts.model.entity.Product;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
-
-import com.compassuol.sp.challenge.msproducts.service.assembler.ProductDtoAssembler;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.annotation.DirtiesContext;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductRepositoryTest {
