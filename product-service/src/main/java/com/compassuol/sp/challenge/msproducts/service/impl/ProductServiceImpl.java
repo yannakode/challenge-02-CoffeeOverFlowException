@@ -75,7 +75,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean deleteProduct() {
-        return false;
+    public void deleteProduct(long id) {
+        productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        productRepository.deleteById(id);
     }
+
 }
