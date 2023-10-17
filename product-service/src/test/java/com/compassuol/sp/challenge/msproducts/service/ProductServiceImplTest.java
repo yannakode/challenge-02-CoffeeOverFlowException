@@ -2,6 +2,7 @@ package com.compassuol.sp.challenge.msproducts.service;
 
 import static com.compassuol.sp.challenge.msproducts.commons.ProductConstants.*;
 
+import com.compassuol.sp.challenge.msproducts.exceptions.GeneralExceptionHandler;
 import com.compassuol.sp.challenge.msproducts.exceptions.customExceptions.InvalidDataException;
 import com.compassuol.sp.challenge.msproducts.model.dto.ProductRequestDto;
 import com.compassuol.sp.challenge.msproducts.model.dto.ProductResponseDto;
@@ -9,6 +10,7 @@ import com.compassuol.sp.challenge.msproducts.model.entity.Product;
 import com.compassuol.sp.challenge.msproducts.repository.ProductRepository;
 import com.compassuol.sp.challenge.msproducts.service.assembler.ProductDtoAssembler;
 import com.compassuol.sp.challenge.msproducts.service.impl.ProductServiceImpl;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,9 +21,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceImplTest {
@@ -142,15 +145,25 @@ public class ProductServiceImplTest {
     @Test
     public void getProductById_WithValidId_ReturnsProduct(){
         var productTest = PRODUCT;
-        var productTestToDto = productDtoAssembler.toDto(productTest);
-
-        productTest.setId(1L);
-
         when(productRepository.findById(1L)).thenReturn(Optional.of(productTest));
 
-        ProductResponseDto sut = productService.getProductById(productTest.getId());
+        var systemUnderTest = productService.getProductById(1L);
 
-        assertThat(productTestToDto).isEqualTo(sut);
+        assertThat(productDtoAssembler.toDto(productTest)).isEqualTo(systemUnderTest);
+    }
+
+    @Test
+    public void getProductById_WithInvalidId_Throwable() {
+        when(productRepository.findById(1L))
+                .thenReturn(Optional.empty());
+
+        var systemUnderTest = assertThrows(EntityNotFoundException.class,
+                () -> productService
+                        .getProductById(1L));
+
+        assertThat(systemUnderTest
+                .getClass())
+                .isEqualTo(EntityNotFoundException.class);
     }
 
     @Test
@@ -239,5 +252,12 @@ public class ProductServiceImplTest {
             assertThat("value").isEqualTo(e.getField());
         }
     }
+   @Test
+   public void deleteProductById_WithValidId_DoesNotException(){
+        productService.deleteProductById(1L);
+
+        verify(productRepository).deleteById(1L);
+    }
 
 }
+
