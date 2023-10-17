@@ -7,11 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="msproducts" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ms-orders" target="1.5" />
+      <module name="msproducts" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

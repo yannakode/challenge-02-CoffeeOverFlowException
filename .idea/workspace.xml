@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb11ab2f-e5ab-42da-a14b-23ace1941f31" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/doc-swagger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/doc-swagger.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,8 +52,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "product",
-    "last_opened_file_path": "/home/joelhenrique/Downloads/challenge-02-CoffeeOverFlowException-get-product-id",
+    "git-widget-placeholder": "product-docker",
+    "last_opened_file_path": "/home/joelhenrique/Documentos/Compass/challenge-of-the-week-viii-compass/Second/challenge-02-CoffeeOverFlowException/product-service",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -57,6 +63,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/product-service" />
       <recent name="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts" />
       <recent name="$PROJECT_DIR$/product-service/src/main/resources/db/migration" />
       <recent name="$PROJECT_DIR$/product-service/src/main/java/com/compassuol/sp/challenge/msproducts/exceptions" />
@@ -172,6 +179,7 @@
       <option name="presentableId" value="Default" />
       <updated>1696890048858</updated>
       <workItem from="1697106664845" duration="4223000" />
+      <workItem from="1697580256065" duration="3725000" />
     </task>
     <servers />
   </component>

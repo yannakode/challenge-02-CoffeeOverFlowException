@@ -11,14 +11,63 @@ servers:
 - url: http://localhost:8080
   description: Generated server url
 tags:
-  - name: Product
+  - name: Products route
     description: Product management
 paths:
+  /products/{id}:
+    put:
+      tags:
+        - Products route
+      summary: Updates existing products
+      description: Update an existing product by id
+      operationId: updateProduct
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequestDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BAD REQUEST
+        "404":
+          description: NOT FOUND
+        "409":
+          description: CONFLICT
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProductResponseDto'
   /products:
+    get:
+      tags:
+        - Products route
+      summary: View all products
+      description: Display all products registered in the database
+      operationId: getAllProducts
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductResponseDto'
     post:
       tags:
-      - Product
-      summary: Persist in db new products.
+      - Products route
+      summary: Insert new products
+      description: Insert new product into the database
       operationId: createProduct
       requestBody:
         content:
@@ -29,10 +78,54 @@ paths:
       responses:
         "200":
           description: OK
+        "400":
+          description: BAD REQUEST
+        "404":
+          description: NOT FOUND
+        "409":
+          description: CONFLICT
           content:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ProductResponseDto'
+  /products/{productId}:
+    get:
+      tags:
+        - Products route
+      summary: Search products by id
+      description: Search for product in the database by id
+      operationId: getProductById
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: NOT FOUND
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProductResponseDto'
+    delete:
+      tags:
+        - Products route
+      summary: Delete products
+      operationId: Delete product in the database by id
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
 components:
   schemas:
     ProductRequestDto:
