@@ -61,8 +61,13 @@ public class ProductServiceImpl implements ProductService {
             Optional<Product> productOp = productRepository.findById(productId);
 
             if(productOp.isEmpty()) throw new InvalidDataException("Product Id not found", "Id");
+
             if(productRequestDTO.getName() == null || productRequestDTO.getName().length() < 1) throw new InvalidDataException("The name field cannot be empty.", "name");
+
             if(productRequestDTO.getValue() <= 0) throw new InvalidDataException("The value field needs to be greater than zero.", "value");
+
+            if(productRequestDTO.getDescription().length() < 10) throw new InvalidDataException("The description field needs to be greater than 10.", "Description");
+
             if(productRepository.findByName(productRequestDTO.getName()).isPresent()) throw new DataIntegrityViolationException("Product name already exists");
 
             Product originalProduct = productOp.get();
