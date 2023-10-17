@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,10 +24,25 @@ public class OrderResponseDTO {
     private Double subtotalValue;
     private Double discount;
     private Double totalValue;
-    private Date createdDate;
+    private OffsetDateTime createdDate;
     private Status status;
+    private OffsetDateTime updateDate;
+    private OffsetDateTime cancelDate;
+    private String cancelReason;
 
-    public static OrderResponseDTO toDTO(Order order) {
+    public OrderResponseDTO(Long id, List<ProductOrderDTO> products, Address address, PaymentMethod paymentMethod, Double subtotalValue, Double discount, Double totalValue, OffsetDateTime createdDate, Status status) {
+        this.id = id;
+        this.products = products;
+        this.address = address;
+        this.paymentMethod = paymentMethod;
+        this.subtotalValue = subtotalValue;
+        this.discount = discount;
+        this.totalValue = totalValue;
+        this.createdDate = createdDate;
+        this.status = status;
+    }
+
+    public OrderResponseDTO toDTO(Order order) {
         OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
         orderResponseDTO.setId(order.getId());
 

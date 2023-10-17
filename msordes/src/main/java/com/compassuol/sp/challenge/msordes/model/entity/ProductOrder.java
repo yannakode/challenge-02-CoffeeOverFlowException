@@ -5,10 +5,9 @@ import lombok.*;
 
 @Entity
 @RequiredArgsConstructor
-
+@AllArgsConstructor
 @Getter
 @Setter
-@ToString
 public class ProductOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

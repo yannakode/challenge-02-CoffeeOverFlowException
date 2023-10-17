@@ -1,5 +1,6 @@
 package com.compassuol.sp.challenge.msordes.service.impl;
 
+import com.compassuol.sp.challenge.msordes.enums.PaymentMethod;
 import com.compassuol.sp.challenge.msordes.enums.Status;
 import com.compassuol.sp.challenge.msordes.exceptions.customExceptions.BusinessException;
 import com.compassuol.sp.challenge.msordes.exceptions.customExceptions.InvalidDataException;
@@ -15,17 +16,19 @@ import com.compassuol.sp.challenge.msordes.response.Products;
 import com.compassuol.sp.challenge.msordes.service.OrderService;
 import feign.FeignException;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @AllArgsConstructor
-public class ProductServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository repository;
     private final ViaCepProxy viaCepProxy;
@@ -42,12 +45,6 @@ public class ProductServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO) {
-        Order savedOrder = repository.save(createOrderFromRequest(orderRequestDTO));
-        return OrderResponseDTO.toDTO(savedOrder);
-    }
-
-    @Override
     public OrderResponseDTO updateOrder(Long orderId, OrderRequestDTO orderRequestDTO) {
         return null;
     }
@@ -57,17 +54,34 @@ public class ProductServiceImpl implements OrderService {
         return false;
     }
 
-    public Order createOrderFromRequest(OrderRequestDTO orderRequestDTO) {
+    @Override
+    public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO) {
         Order order = new Order();
+        AtomicReference<Double> totalValue = new AtomicReference<>(0.0);
 
         orderRequestDTO.getProducts().forEach(e -> {
             if(e.getQuantity() == null || e.getQuantity() == 0|| e.getProductId() == null || e.getProductId() == 0) throw new InvalidDataException("Please review the products. The product_id and quantity fields cannot be empty.", "products");
             try{
                 Products productById = productProxy.getProductById(e.getProductId());
+                totalValue.updateAndGet(v -> v + (productById.getValue() * e.getQuantity()));
             } catch (FeignException ex) {
-               throw new BusinessException("No product was found for the product_id provided.");
+                throw new BusinessException("No product was found for the product_id provided.");
             }
         });
+
+        try{
+            PaymentMethod paymentMethod = PaymentMethod.valueOf(orderRequestDTO.getPaymentMethod());
+            order.setPaymentMethod(paymentMethod);
+            if(paymentMethod == PaymentMethod.PIX) order.setDiscount(0.05); else {order.setDiscount(0.0);};
+        } catch (IllegalArgumentException ex) {
+            throw new BusinessException("Allowed payment types: CREDIT_CARD, BANK_TRANSFER, CRYPTOCURRENCY, GIFT_CARD, PIX, OTHER.");
+        }
+
+        BigDecimal totalValueBigDecimal = new BigDecimal(totalValue.get().toString());
+        BigDecimal operation = totalValueBigDecimal.subtract(totalValueBigDecimal.multiply(new BigDecimal(order.getDiscount().toString()))).setScale(2, RoundingMode.HALF_UP);
+
+        order.setSubtotalValue(totalValue.get());
+        order.setTotalValue(operation.doubleValue());
 
         try{
             AddressViaCep cep = viaCepProxy.getCEP(orderRequestDTO.getAddress().getPostalCode());
@@ -79,11 +93,8 @@ public class ProductServiceImpl implements OrderService {
             throw new BusinessException("Please enter a valid postal code.");
         }
 
-        order.setPaymentMethod(orderRequestDTO.getPaymentMethod());
-        order.setCreatedDate(new Date());
-        order.setSubtotalValue(100.0);
-        order.setDiscount(0.5);
-        order.setTotalValue(95.0);
+        order.setCreatedDate(OffsetDateTime.now());
+
         order.setStatus(Status.CONFIRMED);
 
         orderRequestDTO.getProducts().forEach(e -> {
@@ -93,6 +104,9 @@ public class ProductServiceImpl implements OrderService {
             productOrder.setQuantity(e.getQuantity());
             order.getProducts().add(productOrder);
         });
-        return order;
-    };
+
+        Order savedOrder = repository.save(order);
+        return new OrderResponseDTO().toDTO(savedOrder);
+    }
+
 }

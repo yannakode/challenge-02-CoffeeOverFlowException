@@ -17,5 +17,5 @@ public class OrderRequestDTO {
     private List<ProductOrderDTO> products;
     private Address address;
     @JsonProperty("payment_method")
-    private PaymentMethod paymentMethod;
+    private String paymentMethod;
 }

@@ -8,9 +8,18 @@ spring:
         password: root
         url: jdbc:mysql://localhost:3306/db_ecommerce?createDatabaseIfNotExist=true&serverTimezone=UTC
         username: root
+
     jpa:
         hibernate:
             ddl-auto: update
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.MySQL8Dialect
+        defer-datasource-initialization: true
+    sql:
+        init:
+            mode: always
+            continue-on-error: true
+    jackson:
+        time-zone: America/Sao_Paulo
+        default-property-inclusion: NON_NULL
