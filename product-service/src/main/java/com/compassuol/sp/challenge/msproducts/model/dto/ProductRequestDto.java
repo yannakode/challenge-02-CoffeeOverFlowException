@@ -1,14 +1,11 @@
 package com.compassuol.sp.challenge.msproducts.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@ToString
+@NoArgsConstructor
 public class ProductRequestDto {
 
     private String name;

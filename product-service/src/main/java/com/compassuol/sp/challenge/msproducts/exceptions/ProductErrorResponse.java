@@ -1,8 +1,10 @@
 package com.compassuol.sp.challenge.msproducts.exceptions;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 public class ProductErrorResponse {
     private Integer code;
     private String status;
@@ -10,7 +12,8 @@ public class ProductErrorResponse {
     private DetailsProductErrorResponse details;
 
 }
-@Data
+@Getter
+@Setter
 class DetailsProductErrorResponse {
     private String fields;
     private String message;
