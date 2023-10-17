@@ -3,6 +3,7 @@ package com.compassuol.sp.challenge.msproducts.exceptions;
 import com.compassuol.sp.challenge.msproducts.exceptions.customExceptions.BusinessException;
 import com.compassuol.sp.challenge.msproducts.exceptions.customExceptions.InternalServerErrorException;
 import com.compassuol.sp.challenge.msproducts.exceptions.customExceptions.InvalidDataException;
+import com.compassuol.sp.challenge.msproducts.jacoco.ExcludeFromJacocoGeneratedReport;
 import org.springframework.dao.DataIntegrityViolationException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -45,6 +46,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+    @ExcludeFromJacocoGeneratedReport
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ProductErrorResponse> handleEntityNotFoundException(){
         var httpStatus = HttpStatus.NOT_FOUND;
@@ -56,7 +58,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(productErrorResponse, httpStatus);
     }
-
+    @ExcludeFromJacocoGeneratedReport
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ProductErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
         ProductErrorResponse error = new ProductErrorResponse();
