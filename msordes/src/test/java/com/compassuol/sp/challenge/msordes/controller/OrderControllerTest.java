@@ -33,4 +33,15 @@ public class OrderControllerTest {
         assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(sut.getBody()).isEqualTo(ORDER_RESPONSE_DTO);
     }
+
+    @Test
+    public void updateProduct_WithValidData_ReturnsCreated() throws Exception {
+
+        when(orderService.updateOrder(1L, UPDATE_ORDER_REQUEST_DTO)).thenReturn(ORDER_RESPONSE_DTO);
+
+        ResponseEntity<OrderResponseDTO> sut = orderController.updateProduct(1L, UPDATE_ORDER_REQUEST_DTO);
+
+        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(sut.getBody()).isEqualTo(ORDER_RESPONSE_DTO);
+    }
 }

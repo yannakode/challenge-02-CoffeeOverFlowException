@@ -12,8 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
-public class OrderRequestDTO {
+public class OrderRequestDTO{
     private List<ProductOrderDTO> products;
     private Address address;
     @JsonProperty("payment_method")

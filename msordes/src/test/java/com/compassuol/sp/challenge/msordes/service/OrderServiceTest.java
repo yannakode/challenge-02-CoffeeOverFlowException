@@ -24,6 +24,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceTest {
     @InjectMocks
@@ -38,7 +40,7 @@ public class OrderServiceTest {
     OrderResponseDTO orderResponseDTO;
 
     @Test
-    public void createOrder_withValidData_ReturnsProduct() {
+    public void createOrder_withValidData_ReturnsOrder() {
         when(productProxy.getProductById(anyLong())).thenReturn(PRODUCTS_RESPONSE);
         when(viaCepProxy.getCEP(anyString())).thenReturn(ADDRESS_VIA_CEP);
         when(repository.save(any(Order.class))).thenReturn(ORDER);
@@ -88,6 +90,42 @@ public class OrderServiceTest {
             OrderResponseDTO sut = orderService.createOrder(ORDER_REQUEST_DTO);
         } catch (BusinessException e) {
             assertThat("Please enter a valid postal code.").isEqualTo(e.getMessage());
+        }
+    }
+
+    @Test
+    public void update_withValidData_ReturnsOrder() {
+        when(productProxy.getProductById(anyLong())).thenReturn(PRODUCTS_RESPONSE);
+        when(repository.findById(1L)).thenReturn(Optional.of(ORDER));
+        when(viaCepProxy.getCEP(anyString())).thenReturn(ADDRESS_VIA_CEP);
+        when(repository.save(any(Order.class))).thenReturn(ORDER);
+        when(orderResponseDTO.toDTO(any(Order.class))).thenReturn(ORDER_RESPONSE_DTO);
+
+        OrderResponseDTO sut = orderService.updateOrder(1L, UPDATE_ORDER_REQUEST_DTO);
+
+        assertThat(sut.getId()).isEqualTo(ORDER.getId());
+        assertThat(sut.getAddress()).isEqualTo(ORDER.getAddress());
+        assertThat(sut.getDiscount()).isEqualTo(ORDER.getDiscount());
+    }
+
+    @Test
+    public void updateOrder_WithInvalidStatus_ThrowsException() {
+        when(repository.findById(1L)).thenReturn(Optional.of(ORDER));
+
+        try {
+            OrderResponseDTO sut = orderService.updateOrder(1L, UPDATE_ORDER_REQUEST_DTO_INVALID_STATUS);
+        } catch (BusinessException e) {
+            assertThat("Status of requests allowed for this operation: CONFIRMED or SENT").isEqualTo(e.getMessage());
+        }
+    }
+    @Test
+    public void updateOrder_WithInvalidStatusCanceled_ThrowsException() {
+        when(repository.findById(1L)).thenReturn(Optional.of(ORDER));
+
+        try {
+            OrderResponseDTO sut = orderService.updateOrder(1L, UPDATE_ORDER_REQUEST_DTO_INVALID_STATUS_CANCELED);
+        } catch (BusinessException e) {
+            assertThat("If you wish to cancel the order, use the endpoint: /orders/{id}/cancel").isEqualTo(e.getMessage());
         }
     }
 }

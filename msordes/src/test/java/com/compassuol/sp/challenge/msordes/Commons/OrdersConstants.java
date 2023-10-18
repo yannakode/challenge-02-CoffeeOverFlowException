@@ -2,10 +2,7 @@ package com.compassuol.sp.challenge.msordes.Commons;
 
 import com.compassuol.sp.challenge.msordes.enums.PaymentMethod;
 import com.compassuol.sp.challenge.msordes.enums.Status;
-import com.compassuol.sp.challenge.msordes.model.dto.Address;
-import com.compassuol.sp.challenge.msordes.model.dto.OrderRequestDTO;
-import com.compassuol.sp.challenge.msordes.model.dto.OrderResponseDTO;
-import com.compassuol.sp.challenge.msordes.model.dto.ProductOrderDTO;
+import com.compassuol.sp.challenge.msordes.model.dto.*;
 import com.compassuol.sp.challenge.msordes.model.entity.Order;
 import com.compassuol.sp.challenge.msordes.model.entity.ProductOrder;
 import com.compassuol.sp.challenge.msordes.response.AddressViaCep;
@@ -24,5 +21,8 @@ public class OrdersConstants {
     public static final Order ORDER = new Order(1L, List.of(PRODUCT), ADDRESS, PaymentMethod.PIX, 889.98, 0.05, 845.48, OffsetDateTime.now(), Status.CONFIRMED);
     public static final Order ORDER_INVALID = new Order(1L, null, null, PaymentMethod.PIX, 889.98, 0.05, 845.48, OffsetDateTime.now(), Status.CONFIRMED);
     public static final OrderRequestDTO ORDER_REQUEST_DTO = new OrderRequestDTO(List.of(PRODUCT_ORDER_DTO), ADDRESS, "PIX");
+    public static final UpdateOrderRequestDTO UPDATE_ORDER_REQUEST_DTO = new UpdateOrderRequestDTO(1L, List.of(PRODUCT_ORDER_DTO), ADDRESS, "PIX", "SENT");
+    public static final UpdateOrderRequestDTO UPDATE_ORDER_REQUEST_DTO_INVALID_STATUS = new UpdateOrderRequestDTO(1L, List.of(PRODUCT_ORDER_DTO), ADDRESS, "PIX", "TESTE");
+    public static final UpdateOrderRequestDTO UPDATE_ORDER_REQUEST_DTO_INVALID_STATUS_CANCELED = new UpdateOrderRequestDTO(1L, List.of(PRODUCT_ORDER_DTO), ADDRESS, "PIX", "CANCELED");
     public static final OrderResponseDTO ORDER_RESPONSE_DTO =  new OrderResponseDTO(1L, List.of(PRODUCT_ORDER_DTO), ADDRESS, PaymentMethod.PIX, 889.98, 0.05, 845.48, OffsetDateTime.now(), Status.CONFIRMED);
 }

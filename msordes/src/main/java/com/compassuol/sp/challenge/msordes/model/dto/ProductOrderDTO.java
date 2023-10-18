@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class ProductOrderDTO {
     @JsonProperty("product_id")
     private Long productId;

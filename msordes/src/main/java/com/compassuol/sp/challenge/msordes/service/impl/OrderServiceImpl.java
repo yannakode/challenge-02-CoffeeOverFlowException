@@ -6,6 +6,7 @@ import com.compassuol.sp.challenge.msordes.exceptions.customExceptions.BusinessE
 import com.compassuol.sp.challenge.msordes.exceptions.customExceptions.InvalidDataException;
 import com.compassuol.sp.challenge.msordes.model.dto.OrderRequestDTO;
 import com.compassuol.sp.challenge.msordes.model.dto.OrderResponseDTO;
+import com.compassuol.sp.challenge.msordes.model.dto.UpdateOrderRequestDTO;
 import com.compassuol.sp.challenge.msordes.model.entity.Order;
 import com.compassuol.sp.challenge.msordes.model.entity.ProductOrder;
 import com.compassuol.sp.challenge.msordes.proxy.ProductProxy;
@@ -22,8 +23,10 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
@@ -45,8 +48,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderResponseDTO updateOrder(Long orderId, OrderRequestDTO orderRequestDTO) {
-        return null;
+    public OrderResponseDTO updateOrder(Long orderId, UpdateOrderRequestDTO orderRequestDTO) {
+        Order order = getOrder(orderRequestDTO);
+
+        order.setId(((UpdateOrderRequestDTO) orderRequestDTO).getId());
+        order.setUpdateDate(OffsetDateTime.now());
+
+        Order savedOrder = repository.save(order);
+        return new OrderResponseDTO().toDTO(savedOrder);
     }
 
     @Override
@@ -56,7 +65,32 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO) {
-        Order order = new Order();
+        Order order = getOrder(orderRequestDTO);
+        order.setCreatedDate(OffsetDateTime.now());
+
+        Order savedOrder = repository.save(order);
+        return new OrderResponseDTO().toDTO(savedOrder);
+    }
+
+    private Order getOrder(OrderRequestDTO orderRequestDTO) {
+        Order order = null;
+
+        if (orderRequestDTO instanceof UpdateOrderRequestDTO) {
+            Optional<Order> result = repository.findById(((UpdateOrderRequestDTO) orderRequestDTO).getId());
+            if (result.isEmpty()) throw new BusinessException("The provided ID does not exist");
+            order = result.get();
+
+            try {
+                Status status = Status.valueOf(((UpdateOrderRequestDTO) orderRequestDTO).getStatus());
+                if (status == Status.CONFIRMED || status == Status.SENT) order.setStatus(status); else {throw new BusinessException("If you wish to cancel the order, use the endpoint: /orders/{id}/cancel");};
+            } catch (IllegalArgumentException ex) {
+                throw new BusinessException("Status of requests allowed for this operation: CONFIRMED or SENT");
+            }
+        } else {
+            order = new Order();
+            order.setStatus(Status.CONFIRMED);
+        }
+
         AtomicReference<Double> totalValue = new AtomicReference<>(0.0);
 
         orderRequestDTO.getProducts().forEach(e -> {
@@ -93,20 +127,16 @@ public class OrderServiceImpl implements OrderService {
             throw new BusinessException("Please enter a valid postal code.");
         }
 
-        order.setCreatedDate(OffsetDateTime.now());
-
-        order.setStatus(Status.CONFIRMED);
-
+        Order finalOrder = order;
+        finalOrder.setProducts(new ArrayList<>());
         orderRequestDTO.getProducts().forEach(e -> {
             ProductOrder productOrder = new ProductOrder();
-            productOrder.setOrder(order);
+            productOrder.setOrder(finalOrder);
             productOrder.setProductId(e.getProductId());
             productOrder.setQuantity(e.getQuantity());
-            order.getProducts().add(productOrder);
+            finalOrder.getProducts().add(productOrder);
         });
-
-        Order savedOrder = repository.save(order);
-        return new OrderResponseDTO().toDTO(savedOrder);
+        return order;
     }
 
 }

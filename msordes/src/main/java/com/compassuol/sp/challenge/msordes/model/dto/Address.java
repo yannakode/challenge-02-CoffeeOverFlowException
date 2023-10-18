@@ -8,7 +8,6 @@ import lombok.*;
 @Getter
 @Setter
 @Embeddable
-@ToString
 public class Address {
     private String street;
     private Integer number;
