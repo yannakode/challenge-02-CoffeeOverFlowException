@@ -9,11 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FeedBackResponseDto {
-
+public class FeedbackResponseDto {
     private Long id;
     private String scale;
     private String comment;
     private Long orderId;
-
 }

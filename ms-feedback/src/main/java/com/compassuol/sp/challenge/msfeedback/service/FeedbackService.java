@@ -1,14 +1,14 @@
 package com.compassuol.sp.challenge.msfeedback.service;
 
-import com.compassuol.sp.challenge.msfeedback.model.dto.FeedBackRequestDto;
-import com.compassuol.sp.challenge.msfeedback.model.dto.FeedBackResponseDto;
+import com.compassuol.sp.challenge.msfeedback.model.dto.FeedbackRequestDto;
+import com.compassuol.sp.challenge.msfeedback.model.dto.FeedbackResponseDto;
 
 import java.util.List;
 
 public interface FeedbackService {
-    List<FeedBackResponseDto> getAllProducts();
-    FeedBackResponseDto getProductById(long feedbackId);
-    FeedBackResponseDto createProduct(FeedBackRequestDto feedBackRequestDto);
-    FeedBackResponseDto updateProduct(Long feedbackId , FeedBackRequestDto feedBackRequestDto);
-    void deleteProductById(long id);
+    List<FeedbackResponseDto> getAllFeedbacks();
+    FeedbackResponseDto getFeedbackById(long feedbackId);
+    FeedbackResponseDto createFeedback(FeedbackRequestDto feedBackRequestDto);
+    FeedbackResponseDto updateFeedback(Long feedbackId , FeedbackRequestDto feedBackRequestDto);
+    void deleteFeedbackById(long id);
 }
