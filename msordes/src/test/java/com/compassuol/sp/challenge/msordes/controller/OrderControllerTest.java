@@ -12,6 +12,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Collections;
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -22,6 +25,16 @@ public class OrderControllerTest {
 
     @InjectMocks
     private OrderController orderController;
+
+    @Test
+    public void getAllOrders_WithValidStatus_ReturnsOrders() throws Exception {
+        when(orderService.getAllOrders(ORDER.getStatus().toString())).thenReturn(List.of(ORDER_RESPONSE_DTO));
+
+        ResponseEntity<List<OrderResponseDTO>> sut = orderController.getAllOrders(ORDER.getStatus().toString());
+
+        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(sut.getBody()).isEqualTo(List.of(ORDER_RESPONSE_DTO));
+    }
 
     @Test
     public void createProduct_WithValidData_ReturnsCreated() throws Exception {

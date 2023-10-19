@@ -22,9 +22,11 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.OffsetDateTime;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -35,9 +37,33 @@ public class OrderServiceImpl implements OrderService {
     private final ProductProxy productProxy;
 
     @Override
-    public List<OrderResponseDTO> getAllOrders() {
-        return null;
+    public List<OrderResponseDTO> getAllOrders(String status) {
+        List<Order> orders;
+
+        if (status != null) {
+            validateStatus(status);
+            orders = repository.findByStatus(Status.fromString(status));
+            return orders.stream()
+                    .map(OrderResponseDTO::toDTO)
+                    .collect(Collectors.toList());
+        }
+
+        orders = repository.findAll();
+        return orders.stream()
+                .map(OrderResponseDTO::toDTO)
+                .collect(Collectors.toList());
     }
+
+    private void validateStatus(String status) {
+        if (status != null) {
+            try {
+                Status.fromString(status);
+            } catch (InvalidDataException e) {
+                throw new InvalidDataException("Invalid status value. Allowed values are CONFIRMED, SENT, CANCELED.", "status");
+            }
+        }
+    }
+
 
     @Override
     public OrderResponseDTO getOrderById(long orderId) {
@@ -108,5 +134,4 @@ public class OrderServiceImpl implements OrderService {
         Order savedOrder = repository.save(order);
         return new OrderResponseDTO().toDTO(savedOrder);
     }
-
 }
