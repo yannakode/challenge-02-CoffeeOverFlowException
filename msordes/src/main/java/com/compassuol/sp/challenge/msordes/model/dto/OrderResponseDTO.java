@@ -42,7 +42,7 @@ public class OrderResponseDTO {
         this.status = status;
     }
 
-    public static OrderResponseDTO toDTO(Order order) {
+    public OrderResponseDTO toDTO(Order order) {
         OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
         orderResponseDTO.setId(order.getId());
 
@@ -61,6 +61,9 @@ public class OrderResponseDTO {
         orderResponseDTO.setCreatedDate(order.getCreatedDate());
         orderResponseDTO.setSubtotalValue(order.getSubtotalValue());
         orderResponseDTO.setTotalValue(order.getTotalValue());
+        orderResponseDTO.setUpdateDate(order.getUpdateDate());
+        orderResponseDTO.setCancelDate(order.getCancelDate());
+        orderResponseDTO.setCancelReason(order.getCancelReason());
 
         return orderResponseDTO;
     }

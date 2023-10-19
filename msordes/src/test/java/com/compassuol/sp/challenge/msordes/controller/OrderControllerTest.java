@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -27,16 +26,6 @@ public class OrderControllerTest {
     private OrderController orderController;
 
     @Test
-    public void getAllOrders_WithValidStatus_ReturnsOrders() throws Exception {
-        when(orderService.getAllOrders(ORDER.getStatus().toString())).thenReturn(List.of(ORDER_RESPONSE_DTO));
-
-        ResponseEntity<List<OrderResponseDTO>> sut = orderController.getAllOrders(ORDER.getStatus().toString());
-
-        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(sut.getBody()).isEqualTo(List.of(ORDER_RESPONSE_DTO));
-    }
-
-    @Test
     public void createProduct_WithValidData_ReturnsCreated() throws Exception {
 
         when(orderService.createOrder(ORDER_REQUEST_DTO)).thenReturn(ORDER_RESPONSE_DTO);
@@ -45,5 +34,48 @@ public class OrderControllerTest {
 
         assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(sut.getBody()).isEqualTo(ORDER_RESPONSE_DTO);
+    }
+
+    @Test
+    public void updateProduct_WithValidData_ReturnsCreated() throws Exception {
+
+        when(orderService.updateOrder(1L, UPDATE_ORDER_REQUEST_DTO)).thenReturn(ORDER_RESPONSE_DTO);
+
+        ResponseEntity<OrderResponseDTO> sut = orderController.updateProduct(1L, UPDATE_ORDER_REQUEST_DTO);
+
+        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(sut.getBody()).isEqualTo(ORDER_RESPONSE_DTO);
+    }
+
+    @Test
+    public void getOrderById_WithValidData_ReturnOrder() throws Exception {
+
+        when(orderService.getOrderById(1L)).thenReturn(ORDER_RESPONSE_DTO);
+
+        ResponseEntity<OrderResponseDTO> sut = orderController.getOrderById(1L);
+
+        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(sut.getBody()).isEqualTo(ORDER_RESPONSE_DTO);
+    }
+
+    @Test
+    public void cancelOrder_WithValidData_ReturnOrder() throws Exception {
+
+        when(orderService.cancelOrder(1L, CANCEL_ORDER_REQUEST_DTO)).thenReturn(ORDER_RESPONSE_DTO_CANCELED);
+
+        ResponseEntity<OrderResponseDTO> sut = orderController.cancelOrder(1L, CANCEL_ORDER_REQUEST_DTO);
+
+        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(sut.getBody()).isEqualTo(ORDER_RESPONSE_DTO_CANCELED);
+    }
+
+    @Test
+    public void getAllOrders_WithValidStatus_ReturnsOrders() throws Exception {
+        when(orderService.getAllOrders(ORDER.getStatus().toString())).thenReturn(List.of(ORDER_RESPONSE_DTO));
+
+        ResponseEntity<List<OrderResponseDTO>> sut = orderController.getAllOrders(ORDER.getStatus().toString());
+
+        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(sut.getBody()).isEqualTo(List.of(ORDER_RESPONSE_DTO));
     }
 }
