@@ -18,6 +18,7 @@ import com.compassuol.sp.challenge.msordes.repository.OrderRepository;
 
 import com.compassuol.sp.challenge.msordes.service.impl.OrderServiceImpl;
 import feign.FeignException;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -126,6 +127,43 @@ public class OrderServiceTest {
             OrderResponseDTO sut = orderService.updateOrder(1L, UPDATE_ORDER_REQUEST_DTO_INVALID_STATUS_CANCELED);
         } catch (BusinessException e) {
             assertThat("If you wish to cancel the order, use the endpoint: /orders/{id}/cancel").isEqualTo(e.getMessage());
+        }
+    }
+
+    @Test
+    public void cancelOrder_withValidData_ReturnsOrder() {
+        when(repository.findById(1L)).thenReturn(Optional.of(ORDER));
+        when(repository.save(any(Order.class))).thenReturn(ORDER);
+        when(orderResponseDTO.toDTO(any(Order.class))).thenReturn(ORDER_RESPONSE_DTO_CANCELED);
+
+        OrderResponseDTO sut = orderService.cancelOrder(1L, CANCEL_ORDER_REQUEST_DTO);
+
+        assertThat(sut.getId()).isEqualTo(ORDER.getId());
+        assertThat(sut.getCancelReason()).isEqualTo(CANCEL_ORDER_REQUEST_DTO.getCancelReason());
+        assertThat(sut.getDiscount()).isEqualTo(ORDER.getDiscount());
+    }
+
+    @Test
+    public void getOrderById_withValidData_ReturnsOrder() {
+        when(repository.findById(1L)).thenReturn(Optional.of(ORDER));
+        when(orderResponseDTO.toDTO(any(Order.class))).thenReturn(ORDER_RESPONSE_DTO);
+
+        OrderResponseDTO sut = orderService.getOrderById(1L);
+
+        assertThat(sut.getId()).isEqualTo(ORDER_RESPONSE_DTO.getId());
+        assertThat(sut.getDiscount()).isEqualTo(ORDER_RESPONSE_DTO.getDiscount());
+        assertThat(sut.getPaymentMethod()).isEqualTo(ORDER_RESPONSE_DTO.getPaymentMethod());
+    }
+
+    @Test
+    public void getOrderById_withInvalidData_ReturnsOrder() {
+        when(repository.findById(1L)).thenReturn(Optional.of(ORDER));
+        when(orderResponseDTO.toDTO(any(Order.class))).thenReturn(ORDER_RESPONSE_DTO);
+
+        try {
+            OrderResponseDTO sut = orderService.getOrderById(1L);
+        } catch (EntityNotFoundException e) {
+            assertThat("products not found!").isEqualTo(e.getMessage());
         }
     }
 }

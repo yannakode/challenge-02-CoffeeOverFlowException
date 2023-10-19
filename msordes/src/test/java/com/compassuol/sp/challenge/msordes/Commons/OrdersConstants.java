@@ -25,4 +25,12 @@ public class OrdersConstants {
     public static final UpdateOrderRequestDTO UPDATE_ORDER_REQUEST_DTO_INVALID_STATUS = new UpdateOrderRequestDTO(1L, List.of(PRODUCT_ORDER_DTO), ADDRESS, "PIX", "TESTE");
     public static final UpdateOrderRequestDTO UPDATE_ORDER_REQUEST_DTO_INVALID_STATUS_CANCELED = new UpdateOrderRequestDTO(1L, List.of(PRODUCT_ORDER_DTO), ADDRESS, "PIX", "CANCELED");
     public static final OrderResponseDTO ORDER_RESPONSE_DTO =  new OrderResponseDTO(1L, List.of(PRODUCT_ORDER_DTO), ADDRESS, PaymentMethod.PIX, 889.98, 0.05, 845.48, OffsetDateTime.now(), Status.CONFIRMED);
+
+    public static final CancelOrderRequestDTO CANCEL_ORDER_REQUEST_DTO = new CancelOrderRequestDTO("Este é o motivo");
+    public static final Order ORDER_INVALID_DAYS = new Order(1L, List.of(PRODUCT), ADDRESS, PaymentMethod.PIX, 889.98, 0.05, 845.48, OffsetDateTime.now().minusDays(91), Status.CONFIRMED);
+    public static final Order ORDER_INVALID_STATUS_SENT = new Order(1L, List.of(PRODUCT), ADDRESS, PaymentMethod.PIX, 889.98, 0.05, 845.48, OffsetDateTime.now(), Status.SENT);
+    public static final Order ORDER_INVALID_STATUS_CANCELED = new Order(1L, List.of(PRODUCT), ADDRESS, PaymentMethod.PIX, 889.98, 0.05, 845.48, OffsetDateTime.now(), Status.CANCELED);
+
+    public static final OrderResponseDTO ORDER_RESPONSE_DTO_CANCELED =  new OrderResponseDTO(1L, List.of(PRODUCT_ORDER_DTO),
+            ADDRESS, PaymentMethod.PIX, 889.98, 0.05, 845.48, OffsetDateTime.now(), Status.CANCELED, null, OffsetDateTime.now(), "Este é o motivo");
 }

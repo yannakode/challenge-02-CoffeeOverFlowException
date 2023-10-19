@@ -44,4 +44,15 @@ public class OrderControllerTest {
         assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(sut.getBody()).isEqualTo(ORDER_RESPONSE_DTO);
     }
+
+    @Test
+    public void getOrderById_WithValidData_ReturnOrder() throws Exception {
+
+        when(orderService.getOrderById(1L)).thenReturn(ORDER_RESPONSE_DTO);
+
+        ResponseEntity<OrderResponseDTO> sut = orderController.getOrderById(1L);
+
+        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(sut.getBody()).isEqualTo(ORDER_RESPONSE_DTO);
+    }
 }

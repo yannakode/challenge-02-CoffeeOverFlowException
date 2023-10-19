@@ -1,5 +1,6 @@
 package com.compassuol.sp.challenge.msordes.controller;
 
+import com.compassuol.sp.challenge.msordes.model.dto.CancelOrderRequestDTO;
 import com.compassuol.sp.challenge.msordes.model.dto.OrderRequestDTO;
 import com.compassuol.sp.challenge.msordes.model.dto.OrderResponseDTO;
 import com.compassuol.sp.challenge.msordes.model.dto.UpdateOrderRequestDTO;
@@ -18,8 +19,8 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<OrderResponseDTO> createOrder(@RequestBody OrderRequestDTO order) {
-        OrderResponseDTO product = service.createOrder(order);
-        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+        OrderResponseDTO orderResponse = service.createOrder(order);
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderResponse);
     }
 
     @PutMapping("/{id}")
@@ -28,5 +29,16 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(service.updateOrder(id, orderRequestDTO));
     }
 
+    @PostMapping("/{id}/cancel")
+    public ResponseEntity<OrderResponseDTO> cancelOrder(@PathVariable("id") Long id, @RequestBody CancelOrderRequestDTO order) {
+        OrderResponseDTO orderResponse = service.cancelOrder(id, order);
+        return ResponseEntity.status(HttpStatus.OK).body(orderResponse);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderResponseDTO> getOrderById(@PathVariable(value = "id") Long id) {
+        OrderResponseDTO orderById = service.getOrderById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(orderById);
+    }
 
 }

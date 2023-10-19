@@ -4,6 +4,7 @@ import com.compassuol.sp.challenge.msordes.enums.PaymentMethod;
 import com.compassuol.sp.challenge.msordes.enums.Status;
 import com.compassuol.sp.challenge.msordes.exceptions.customExceptions.BusinessException;
 import com.compassuol.sp.challenge.msordes.exceptions.customExceptions.InvalidDataException;
+import com.compassuol.sp.challenge.msordes.model.dto.CancelOrderRequestDTO;
 import com.compassuol.sp.challenge.msordes.model.dto.OrderRequestDTO;
 import com.compassuol.sp.challenge.msordes.model.dto.OrderResponseDTO;
 import com.compassuol.sp.challenge.msordes.model.dto.UpdateOrderRequestDTO;
@@ -16,6 +17,7 @@ import com.compassuol.sp.challenge.msordes.response.AddressViaCep;
 import com.compassuol.sp.challenge.msordes.response.Products;
 import com.compassuol.sp.challenge.msordes.service.OrderService;
 import feign.FeignException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.OffsetDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,7 +47,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderResponseDTO getOrderById(long orderId) {
-        return null;
+        Order orderResponse = repository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        return new OrderResponseDTO().toDTO(orderResponse);
     }
 
     @Override
@@ -59,8 +63,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean deleteOrder() {
-        return false;
+    public OrderResponseDTO cancelOrder(Long orderId, CancelOrderRequestDTO cancelOrderRequestDTO) {
+        Optional<Order> result = repository.findById(orderId);
+        if (result.isEmpty()) throw new BusinessException("The provided ID does not exist");
+        Order order = result.get();
+
+        if(order.getStatus() == Status.SENT) throw new BusinessException("An order can only be canceled if the status is other than SENT");
+        if(order.getStatus() == Status.CANCELED) throw new BusinessException("This order is now canceled");
+
+        OffsetDateTime deadline = OffsetDateTime.now().minusDays(90);
+
+        if(order.getCreatedDate().isBefore(deadline)) throw new BusinessException("Tan order cannot be canceled if it is more than 90 days old");
+
+        order.setStatus(Status.CANCELED);
+        order.setCancelDate(OffsetDateTime.now());
+        order.setCancelReason(cancelOrderRequestDTO.getCancelReason());
+
+        Order savedOrder = repository.save(order);
+        return new OrderResponseDTO().toDTO(savedOrder);
     }
 
     @Override
