@@ -9,14 +9,15 @@ import com.compassuol.sp.challenge.msfeedback.response.OrderResponseDTO;
 import com.compassuol.sp.challenge.msfeedback.service.FeedbackService;
 import com.compassuol.sp.challenge.msfeedback.service.assembler.FeedbackDtoAssembler;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
 public class FeedbackServiceImpl implements FeedbackService {
+
 
     private final FeedbackDtoAssembler assembler;
     private final FeedbackRepository repository;
@@ -24,7 +25,13 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public List<FeedbackResponseDto> getAllFeedbacks() {
-        return null;
+        List<Feedback> responseFeedBack = repository.findAll();
+        List<FeedbackResponseDto> feedBackList = new ArrayList<>();
+
+        responseFeedBack.forEach(feedback -> {
+            feedBackList.add(assembler.toDto(feedback));
+        });
+        return feedBackList;
     }
 
     @Override
