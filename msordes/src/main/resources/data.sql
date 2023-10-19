@@ -1,13 +1,13 @@
 insert into order_tb (id, city, complement, number, postal_code, state, street, date, discount, payment_method, status, subtotal_value, total_value)
 values  (1, 'Brasília', '', 10, '70002900', 'DF', 'Esplanada dos Ministérios', '2023-10-16 21:06:28', 0.05, 4, 0, 3299.88, 3134.89),
-        (2, 'São Paulo', '', 10, '04578000', 'SP', 'Esplanada dos Ministérios', '2023-10-16 21:07:06', 0, 5, 0, 499.99, 499.99),
-        (3, 'Rio de Janeiro', 'de 3301 a 3977 - lado ímpar', 10, '22631003', 'RJ', 'Avenida Érico Veríssimo', '2023-10-16 21:08:34', 0, 0, 0, 269.98, 269.98),
+        (2, 'São Paulo', '', 10, '04578000', 'SP', 'Esplanada dos Ministérios', '2023-10-16 21:07:06', 0, 5, 1, 499.99, 499.99),
+        (3, 'Rio de Janeiro', 'de 3301 a 3977 - lado ímpar', 10, '22631003', 'RJ', 'Avenida Érico Veríssimo', '2023-10-16 21:08:34', 0, 0, 2, 269.98, 269.98),
         (6, 'Florianópolis', 'até 532 - lado par', 300, '88015200', 'SC', 'Avenida Beira Mar Norte', '2023-10-16 21:11:17', 0.05, 4, 0, 9999.8, 9499.81),
         (7, 'São Paulo', '', 600, '04136070', 'SP', 'Rua Domingos Paiva', '2023-10-16 21:12:37', 0, 3, 0, 939.97, 939.97),
         (8, 'Vila Velha', '300', 600, '29101902', 'ES', 'Avenida Jerônimo Monteiro', '2023-10-16 21:13:55', 0.05, 4, 0, 1199.95, 1139.95),
         (9, 'Manaus', '', 1, '69005170', 'AM', 'Avenida Joaquim Nabuco', '2023-10-16 21:15:06', 0, 5, 0, 799.99, 799.99),
         (10, 'João Pessoa', '', 15, '58015060', 'PB', 'Avenida Rui Carneiro', '2023-10-16 21:16:10', 0, 2, 0, 5999, 5999),
-        (11, 'Jundiaí', 'Km 65,000', 500, '13212902', 'SP', ' Avenida Prefeito Luiz Latorre', '2023-10-16 21:20:16', 0.05, 4, 0, 799.99, 759.99),
+        (11, 'Jundiaí', 'Km 65,000', 500, '13212902', 'SP', ' Avenida Prefeito Luiz Latorre', '2023-10-16 21:20:16', 0.05, 4, 1, 799.99, 759.99),
         (12, 'Recife', '', 79, '50030080', 'PE', 'Rua do Imperador', '2023-10-16 21:21:28', 0, 0, 0, 759.97, 759.97);
 
 insert into product_order (id, product_id, quantity, order_id)

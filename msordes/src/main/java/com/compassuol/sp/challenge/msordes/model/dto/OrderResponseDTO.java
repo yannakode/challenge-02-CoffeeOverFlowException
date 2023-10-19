@@ -42,7 +42,7 @@ public class OrderResponseDTO {
         this.status = status;
     }
 
-    public OrderResponseDTO toDTO(Order order) {
+    public static OrderResponseDTO toDTO(Order order) {
         OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
         orderResponseDTO.setId(order.getId());
 
