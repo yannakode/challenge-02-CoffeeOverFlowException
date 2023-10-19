@@ -144,6 +144,43 @@ public class OrderServiceTest {
     }
 
     @Test
+    public void cancelOrder_withInvalidDays_ThrowsException() {
+        when(repository.findById(1L)).thenReturn(Optional.of(ORDER_INVALID_DAYS));
+        when(repository.save(any(Order.class))).thenReturn(ORDER);
+        when(orderResponseDTO.toDTO(any(Order.class))).thenReturn(ORDER_RESPONSE_DTO_CANCELED);
+
+        try {
+            OrderResponseDTO sut = orderService.cancelOrder(1L, CANCEL_ORDER_REQUEST_DTO);
+        } catch (BusinessException e) {
+            assertThat("Tan order cannot be canceled if it is more than 90 days old").isEqualTo(e.getMessage());
+        }
+    }
+    @Test
+    public void cancelOrder_withInvalidStatusSent_ThrowsException() {
+        when(repository.findById(1L)).thenReturn(Optional.of(ORDER_INVALID_STATUS_SENT));
+        when(repository.save(any(Order.class))).thenReturn(ORDER);
+        when(orderResponseDTO.toDTO(any(Order.class))).thenReturn(ORDER_RESPONSE_DTO_CANCELED);
+
+        try {
+            OrderResponseDTO sut = orderService.cancelOrder(1L, CANCEL_ORDER_REQUEST_DTO);
+        } catch (BusinessException e) {
+            assertThat("An order can only be canceled if the status is other than SENT").isEqualTo(e.getMessage());
+        }
+    }
+    @Test
+    public void cancelOrder_withInvalidStatusCanceled_ThrowsException() {
+        when(repository.findById(1L)).thenReturn(Optional.of(ORDER_INVALID_STATUS_CANCELED));
+        when(repository.save(any(Order.class))).thenReturn(ORDER);
+        when(orderResponseDTO.toDTO(any(Order.class))).thenReturn(ORDER_RESPONSE_DTO_CANCELED);
+
+        try {
+            OrderResponseDTO sut = orderService.cancelOrder(1L, CANCEL_ORDER_REQUEST_DTO);
+        } catch (BusinessException e) {
+            assertThat("This order is now canceled").isEqualTo(e.getMessage());
+        }
+    }
+
+    @Test
     public void getOrderById_withValidData_ReturnsOrder() {
         when(repository.findById(1L)).thenReturn(Optional.of(ORDER));
         when(orderResponseDTO.toDTO(any(Order.class))).thenReturn(ORDER_RESPONSE_DTO);
@@ -156,7 +193,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void getOrderById_withInvalidData_ReturnsOrder() {
+    public void getOrderById_withInvalidData_ () {
         when(repository.findById(1L)).thenReturn(Optional.of(ORDER));
         when(orderResponseDTO.toDTO(any(Order.class))).thenReturn(ORDER_RESPONSE_DTO);
 

@@ -55,4 +55,15 @@ public class OrderControllerTest {
         assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(sut.getBody()).isEqualTo(ORDER_RESPONSE_DTO);
     }
+
+    @Test
+    public void cancelOrder_WithValidData_ReturnOrder() throws Exception {
+
+        when(orderService.cancelOrder(1L, CANCEL_ORDER_REQUEST_DTO)).thenReturn(ORDER_RESPONSE_DTO_CANCELED);
+
+        ResponseEntity<OrderResponseDTO> sut = orderController.cancelOrder(1L, CANCEL_ORDER_REQUEST_DTO);
+
+        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(sut.getBody()).isEqualTo(ORDER_RESPONSE_DTO_CANCELED);
+    }
 }
