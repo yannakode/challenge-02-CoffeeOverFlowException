@@ -1,5 +1,6 @@
 package com.compassuol.sp.challenge.msfeedback.service;
 
+
 import static com.compassuol.sp.challenge.msfeedback.commons.FeedbacksConstants.*;
 
 import com.compassuol.sp.challenge.msfeedback.exceptions.customExceptions.BusinessException;
@@ -16,6 +17,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -31,6 +34,7 @@ public class FeedbackServiceImplTest {
     OrderResponseDTO orderResponseDTO;
     @Mock
     FeedbackDtoAssembler assembler;
+
 
     @Test
     public void createFeedback_withValidData_ReturnsFeedback() {
@@ -76,6 +80,13 @@ public class FeedbackServiceImplTest {
         } catch (BusinessException e) {
             assertThat("It is not allowed to leave feedback on orders with status CANCELED").isEqualTo(e.getMessage());
         }
+    }
+    @Test
+    void getAllFeedbacks_ReturnsFeedback() {
+        when(repository.findAll()).thenReturn(List.of(FEEDBACK));
+        when(assembler.toDto(FEEDBACK)).thenReturn(FEEDBACK_RESPONSE_DTO);
+
+        List<FeedbackResponseDto> sut = feedbackService.getAllFeedbacks();
     }
 
 
