@@ -25,4 +25,16 @@ public class OrderResponseDTO {
     private OffsetDateTime updateDate;
     private OffsetDateTime cancelDate;
     private String cancelReason;
+
+    public OrderResponseDTO(Long id, List<ProductOrderDTO> products, Address address, String paymentMethod, Double subtotalValue, Double discount, Double totalValue, OffsetDateTime createdDate, String status) {
+        this.id = id;
+        this.products = products;
+        this.address = address;
+        this.paymentMethod = paymentMethod;
+        this.subtotalValue = subtotalValue;
+        this.discount = discount;
+        this.totalValue = totalValue;
+        this.createdDate = createdDate;
+        this.status = status;
+    }
 }
