@@ -30,7 +30,7 @@ class FeedbackServiceImplTest {
     @Test
     void getAllFeedbacks_ReturnsFeedback() {
         when(feedbackRepository.findAll()).thenReturn(List.of(FEEDBACK));
-        when(feedbackDtoAssembler.toDto(FEEDBACK)).thenReturn(PRODUCT_RESPONSE_DTO);
+        when(feedbackDtoAssembler.toDto(FEEDBACK)).thenReturn(FEEDBACK_RESPONSE_DTO);
 
         List<FeedbackResponseDto> sut = feedbackService.getAllFeedbacks();
     }
