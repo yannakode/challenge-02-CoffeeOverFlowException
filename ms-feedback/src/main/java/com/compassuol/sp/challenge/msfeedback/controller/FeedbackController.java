@@ -21,7 +21,8 @@ public class FeedbackController {
         FeedbackResponseDto feedbackResponse = feedbackService.createFeedback(feedBackRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(feedbackResponse);
     }
-    @GetMapping("/feedbacks")
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<FeedbackResponseDto> getAllFeedbacks(){
         return feedbackService.getAllFeedbacks();
     }
