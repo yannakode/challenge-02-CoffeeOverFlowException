@@ -173,11 +173,14 @@ public class FeedbackServiceImplTest {
     }
     public void getFeedbackById_WithValidId_ReturnsProduct(){
         var productTest = FEEDBACK;
-        when(repository.findById(1L)).thenReturn(Optional.of(productTest));
+        when(repository.findById(1L))
+                .thenReturn(Optional.of(productTest));
 
-        var systemUnderTest = feedbackService.getFeedbackById(1L);
+        var systemUnderTest = feedbackService
+                .getFeedbackById(1L);
 
-        AssertionsForClassTypes.assertThat(assembler.toDto(productTest)).isEqualTo(systemUnderTest);
+       assertThat(assembler.toDto(productTest))
+               .isEqualTo(systemUnderTest);
     }
 
     @Test
@@ -189,7 +192,7 @@ public class FeedbackServiceImplTest {
                 () -> feedbackService
                         .getFeedbackById(1L));
 
-        AssertionsForClassTypes.assertThat(systemUnderTest
+        assertThat(systemUnderTest
                         .getClass())
                 .isEqualTo(EntityNotFoundException.class);
     }
