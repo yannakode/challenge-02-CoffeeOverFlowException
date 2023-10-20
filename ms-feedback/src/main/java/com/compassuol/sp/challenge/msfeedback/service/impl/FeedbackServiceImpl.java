@@ -2,6 +2,7 @@ package com.compassuol.sp.challenge.msfeedback.service.impl;
 
 import com.compassuol.sp.challenge.msfeedback.enums.Scales;
 import com.compassuol.sp.challenge.msfeedback.exceptions.customExceptions.BusinessException;
+import com.compassuol.sp.challenge.msfeedback.exceptions.customExceptions.InvalidDataException;
 import com.compassuol.sp.challenge.msfeedback.model.dto.FeedbackRequestDto;
 import com.compassuol.sp.challenge.msfeedback.model.dto.FeedbackResponseDto;
 import com.compassuol.sp.challenge.msfeedback.model.entity.Feedback;
@@ -65,6 +66,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public void deleteFeedbackById(long id) {
-
+        if(id <= 0) throw new InvalidDataException("Id value must be not null and greater than zero", "id");
+        var feedbackOptional = repository.findById(id);
+        if(feedbackOptional.isEmpty()) throw new BusinessException("No feedback was found fot the id passed");
+        repository.deleteById(id);
     }
 }

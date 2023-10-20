@@ -2,7 +2,9 @@ package com.compassuol.sp.challenge.msfeedback.service;
 
 import static com.compassuol.sp.challenge.msfeedback.commons.FeedbacksConstants.*;
 
+import com.compassuol.sp.challenge.msfeedback.commons.FeedbacksConstants;
 import com.compassuol.sp.challenge.msfeedback.exceptions.customExceptions.BusinessException;
+import com.compassuol.sp.challenge.msfeedback.exceptions.customExceptions.InvalidDataException;
 import com.compassuol.sp.challenge.msfeedback.model.dto.FeedbackResponseDto;
 import com.compassuol.sp.challenge.msfeedback.proxy.OrderProxy;
 import com.compassuol.sp.challenge.msfeedback.repository.FeedbackRepository;
@@ -16,8 +18,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class FeedbackServiceImplTest {
@@ -78,5 +83,25 @@ public class FeedbackServiceImplTest {
         }
     }
 
+    @Test
+    public void deleteFeedbackById_withValidId_DeletesFeedback() {
+        long feedbackId = 1L;
+        when(repository.findById(feedbackId)).thenReturn(Optional.of(FEEDBACK));
 
+        feedbackService.deleteFeedbackById(feedbackId);
+
+        verify(repository, times(1)).deleteById(feedbackId);
+    }
+    @Test
+    public void deleteFeedbackById_withInvalidId_ThrowsException() {
+        long invalidId = 0L;
+
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            feedbackService.deleteFeedbackById(invalidId);
+        });
+
+        assertThat(exception.getMessage()).isEqualTo("Id value must be not null and greater than zero");
+
+        verify(repository, never()).deleteById(invalidId);
+    }
 }

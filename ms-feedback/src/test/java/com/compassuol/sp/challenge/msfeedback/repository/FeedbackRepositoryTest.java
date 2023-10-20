@@ -22,4 +22,12 @@ public class FeedbackRepositoryTest {
         Feedback sut = repository.save(FEEDBACK);
         assertThat(sut).isEqualTo(FEEDBACK);
     }
+    @Test
+    public void saveFeedback_WithValidData_ReturnsFeedback() {
+        when(repository.save(FEEDBACK)).thenReturn(FEEDBACK);
+
+        Feedback savedFeedback = repository.save(FEEDBACK);
+
+        assertThat(savedFeedback).isEqualTo(FEEDBACK);
+    }
 }

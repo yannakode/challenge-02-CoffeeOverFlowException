@@ -19,4 +19,9 @@ public class FeedbackController {
         FeedbackResponseDto feedbackResponse = feedbackService.createFeedback(feedBackRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(feedbackResponse);
     }
+    @DeleteMapping({"id"})
+    public ResponseEntity<FeedbackResponseDto> deleteFeedbackById(@PathVariable Long id){
+        feedbackService.deleteFeedbackById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
