@@ -20,4 +20,7 @@ public class FeedbacksConstants {
     public static final FeedbackRequestDto FEEDBACK_REQUEST_DTO_INVALID_SCALE = new FeedbackRequestDto("TEST", "No comment", 1L);
     public static final FeedbackResponseDto FEEDBACK_RESPONSE_DTO = new FeedbackResponseDto(1L, "VERY_SATISFIED", "No comment", 1L);
     public static final Feedback FEEDBACK = new Feedback(1L, Scales.VERY_SATISFIED, "No comment", 1L);
+
+    public static final List<FeedbackResponseDto> FEEDBACK_RESPONSE_DTO_LIST = (List.of(FEEDBACK_RESPONSE_DTO));
+    public static final List<Feedback> FEEDBACK_LIST = (List.of(FEEDBACK));
 }

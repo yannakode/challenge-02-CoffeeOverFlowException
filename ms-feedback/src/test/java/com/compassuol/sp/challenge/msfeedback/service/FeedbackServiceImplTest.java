@@ -89,5 +89,16 @@ public class FeedbackServiceImplTest {
         List<FeedbackResponseDto> sut = feedbackService.getAllFeedbacks();
     }
 
+    @Test
+    void getAllFeedbacks_ReturnsEmptyList() {
+        when(repository.findAll()).thenReturn(List.of());
+
+        try {
+            feedbackService.getAllFeedbacks();
+        } catch (BusinessException ex) {
+            assertThat("No feedback was found.").isEqualTo(ex.getMessage());
+        }
+    }
+
 
 }
