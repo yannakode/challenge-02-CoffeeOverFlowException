@@ -12,6 +12,7 @@ import com.compassuol.sp.challenge.msfeedback.response.OrderResponseDTO;
 import com.compassuol.sp.challenge.msfeedback.service.FeedbackService;
 import com.compassuol.sp.challenge.msfeedback.service.assembler.FeedbackDtoAssembler;
 import feign.FeignException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -41,11 +42,6 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public FeedbackResponseDto getFeedbackById(long feedbackId) {
-        return null;
-    }
-
-    @Override
     public FeedbackResponseDto createFeedback(FeedbackRequestDto feedBackRequestDto) {
         OrderResponseDTO orderByIdResponse = null;
         try{
@@ -55,7 +51,6 @@ public class FeedbackServiceImpl implements FeedbackService {
         }
 
         if(orderByIdResponse.getStatus().equals("CANCELED")) throw new BusinessException("It is not allowed to leave feedback on orders with status CANCELED");
-
         try{
             Scales.valueOf(feedBackRequestDto.getScale());
         } catch (IllegalArgumentException ex) {
@@ -75,9 +70,18 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public void deleteFeedbackById(long id) {
-        if(id <= 0) throw new InvalidDataException("Id value must be not null and greater than zero", "id");
+        if (id <= 0) throw new InvalidDataException("Id value must be not null and greater than zero", "id");
         var feedbackOptional = repository.findById(id);
-        if(feedbackOptional.isEmpty()) throw new BusinessException("No feedback was found fot the id passed");
+        if (feedbackOptional.isEmpty()) throw new BusinessException("No feedback was found fot the id passed");
         repository.deleteById(id);
+    }
+
+    @Override
+    public FeedbackResponseDto getFeedbackById(long feedbackId) {
+        var feedBackFound = repository
+                .findById(feedbackId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        return assembler.toDto(feedBackFound);
     }
 }
