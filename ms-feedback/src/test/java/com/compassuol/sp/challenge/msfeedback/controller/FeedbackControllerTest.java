@@ -12,6 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -44,5 +46,14 @@ public class FeedbackControllerTest {
         assertThat(sut.getBody()).isNull();
 
         verify(feedbackService).deleteFeedbackById(feedbackId);
+    }
+
+    @Test
+    public void getAllFeedbacks_ReturnList() {
+        when(feedbackService.getAllFeedbacks()).thenReturn(FEEDBACK_RESPONSE_DTO_LIST);
+
+        List<FeedbackResponseDto> sut = feedbackController.getAllFeedbacks();
+
+        assertThat(sut).isEqualTo(FEEDBACK_RESPONSE_DTO_LIST);
     }
 }

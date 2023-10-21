@@ -8,8 +8,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class FeedbackRepositoryTest {
@@ -22,6 +24,7 @@ public class FeedbackRepositoryTest {
         Feedback sut = repository.save(FEEDBACK);
         assertThat(sut).isEqualTo(FEEDBACK);
     }
+
     @Test
     public void saveFeedback_WithValidData_ReturnsFeedback() {
         when(repository.save(FEEDBACK)).thenReturn(FEEDBACK);
@@ -29,5 +32,22 @@ public class FeedbackRepositoryTest {
         Feedback savedFeedback = repository.save(FEEDBACK);
 
         assertThat(savedFeedback).isEqualTo(FEEDBACK);
+    }
+
+    @Test
+    public void getAllOrders_WithValidData_ReturnsOrder() {
+        when(repository.findAll()).thenReturn(FEEDBACK_LIST);
+        List<Feedback> sut = repository.findAll();
+        assertThat(sut).isEqualTo(FEEDBACK_LIST);
+    }
+    @Test
+    public void deleteFeedbackById_WithValidId_DeletesFeedback() {
+        long feedbackId = 1L;
+
+        doNothing().when(repository).deleteById(feedbackId);
+
+        repository.deleteById(feedbackId);
+
+        verify(repository).deleteById(feedbackId);
     }
 }
