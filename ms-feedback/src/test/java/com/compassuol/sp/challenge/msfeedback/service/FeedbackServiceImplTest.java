@@ -11,15 +11,20 @@ import com.compassuol.sp.challenge.msfeedback.response.OrderResponseDTO;
 import com.compassuol.sp.challenge.msfeedback.service.assembler.FeedbackDtoAssembler;
 import com.compassuol.sp.challenge.msfeedback.service.impl.FeedbackServiceImpl;
 import feign.FeignException;
+import jakarta.persistence.EntityNotFoundException;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -100,5 +105,27 @@ public class FeedbackServiceImplTest {
         }
     }
 
+    @Test
+    public void getFeedbackById_WithValidId_ReturnsProduct(){
+        var productTest = FEEDBACK;
+        when(repository.findById(1L)).thenReturn(Optional.of(productTest));
 
+        var systemUnderTest = feedbackService.getFeedbackById(1L);
+
+        AssertionsForClassTypes.assertThat(assembler.toDto(productTest)).isEqualTo(systemUnderTest);
+    }
+
+    @Test
+    public void getFeedbackById_WithInvalidId_Throwable() {
+        when(repository.findById(1L))
+                .thenReturn(Optional.empty());
+
+        var systemUnderTest = assertThrows(EntityNotFoundException.class,
+                () -> feedbackService
+                        .getFeedbackById(1L));
+
+        AssertionsForClassTypes.assertThat(systemUnderTest
+                        .getClass())
+                .isEqualTo(EntityNotFoundException.class);
+    }
 }

@@ -43,4 +43,14 @@ public class FeedbackControllerTest {
 
         assertThat(sut).isEqualTo(FEEDBACK_RESPONSE_DTO_LIST);
     }
+
+    @Test
+    public void getFeedbackById_ReturnFeedback() {
+        when(feedbackService.getFeedbackById(1L)).thenReturn(FEEDBACK_RESPONSE_DTO);
+
+        ResponseEntity<FeedbackResponseDto> sut = feedbackController.getFeedbackById(1L);
+
+        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(sut.getBody()).isEqualTo(FEEDBACK_RESPONSE_DTO);
+    }
 }
