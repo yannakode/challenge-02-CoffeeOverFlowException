@@ -42,4 +42,9 @@ public class FeedbackController {
         );
     }
 
+    @DeleteMapping({"id"})
+    public ResponseEntity<FeedbackResponseDto> deleteFeedbackById(@PathVariable Long id){
+        feedbackService.deleteFeedbackById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

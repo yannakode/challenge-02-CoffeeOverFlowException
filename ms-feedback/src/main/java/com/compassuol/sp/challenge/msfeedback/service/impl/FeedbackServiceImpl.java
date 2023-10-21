@@ -31,7 +31,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public List<FeedbackResponseDto> getAllFeedbacks() {
         List<Feedback> responseFeedBack = repository.findAll();
-        if(responseFeedBack.isEmpty()) throw new BusinessException("No feedback was found.");
+        if (responseFeedBack.isEmpty()) throw new BusinessException("No feedback was found.");
 
         List<FeedbackResponseDto> feedBackList = new ArrayList<>();
 
@@ -44,14 +44,21 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public FeedbackResponseDto createFeedback(FeedbackRequestDto feedBackRequestDto) {
         OrderResponseDTO orderByIdResponse = null;
-        try{
+        try {
             orderByIdResponse = proxy.getOrderById(feedBackRequestDto.getOrderId());
         } catch (FeignException ex) {
             throw new BusinessException("No order was found for the order_id provided");
         }
 
+<<<<<<< HEAD
         if(orderByIdResponse.getStatus().equals("CANCELED")) throw new BusinessException("It is not allowed to leave feedback on orders with status CANCELED");
         try{
+=======
+        if (orderByIdResponse.getStatus().equals("CANCELED"))
+            throw new BusinessException("It is not allowed to leave feedback on orders with status CANCELED");
+
+        try {
+>>>>>>> 85b9e89 (Added more tests)
             Scales.valueOf(feedBackRequestDto.getScale());
         } catch (IllegalArgumentException ex) {
             throw new BusinessException("The allowed satisfaction levels (scale) are: VERY_DISSATISFIED, DISSATISFIED, NEUTRAL, SATISFIED, VERY_ SATISFIED");

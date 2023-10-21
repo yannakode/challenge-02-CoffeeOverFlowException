@@ -17,22 +17,29 @@ import com.compassuol.sp.challenge.msfeedback.service.assembler.FeedbackDtoAssem
 import com.compassuol.sp.challenge.msfeedback.service.impl.FeedbackServiceImpl;
 import feign.FeignException;
 import jakarta.persistence.EntityNotFoundException;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+<<<<<<< HEAD
 
 import java.util.Optional;
 import java.util.List;
 
+=======
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Optional;
+>>>>>>> 85b9e89 (Added more tests)
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
 
 @ExtendWith(MockitoExtension.class)
 public class FeedbackServiceImplTest {
@@ -122,6 +129,7 @@ public class FeedbackServiceImplTest {
 
     @Test
     public void createFeedback_withInvalidOrderStatus_ThrowsException() {
+
         when(proxy.getOrderById(1L)).thenReturn(ORDER_RESPONSE_DTO_INVALID_STATUS);
 
         try {
@@ -193,7 +201,28 @@ public class FeedbackServiceImplTest {
                         .getFeedbackById(1L));
 
         assertThat(systemUnderTest
-                        .getClass())
+                .getClass())
                 .isEqualTo(EntityNotFoundException.class);
+    }
+    @Test
+    public void deleteFeedbackById_withValidId_DeletesFeedback() {
+        long feedbackId = 1L;
+        when(repository.findById(feedbackId)).thenReturn(Optional.of(FEEDBACK));
+
+        feedbackService.deleteFeedbackById(feedbackId);
+
+        verify(repository, times(1)).deleteById(feedbackId);
+    }
+    @Test
+    public void deleteFeedbackById_withInvalidId_ThrowsException() {
+        long invalidId = 0L;
+
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            feedbackService.deleteFeedbackById(invalidId);
+        });
+
+        assertThat(exception.getMessage()).isEqualTo("Id value must be not null and greater than zero");
+
+        verify(repository, never()).deleteById(invalidId);
     }
 }
