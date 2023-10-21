@@ -29,6 +29,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public List<FeedbackResponseDto> getAllFeedbacks() {
         List<Feedback> responseFeedBack = repository.findAll();
+        if(responseFeedBack.isEmpty()) throw new BusinessException("No feedback was found.");
+
         List<FeedbackResponseDto> feedBackList = new ArrayList<>();
 
         responseFeedBack.forEach(feedback -> {
