@@ -1,6 +1,5 @@
 package com.compassuol.sp.challenge.msfeedback.service;
 
-
 import static com.compassuol.sp.challenge.msfeedback.commons.FeedbacksConstants.*;
 
 import com.compassuol.sp.challenge.msfeedback.exceptions.customExceptions.BusinessException;
@@ -16,6 +15,7 @@ import com.compassuol.sp.challenge.msfeedback.service.assembler.FeedbackDtoAssem
 import com.compassuol.sp.challenge.msfeedback.service.impl.FeedbackServiceImpl;
 import feign.FeignException;
 import jakarta.persistence.EntityNotFoundException;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,7 +28,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-
 import static org.mockito.Mockito.when;
 
 
@@ -173,6 +172,7 @@ public class FeedbackServiceImplTest {
         verify(repository, never()).deleteById(invalidId);
     }
 
+    @Test
     public void getFeedbackById_WithValidId_ReturnsProduct() {
         var productTest = FEEDBACK;
         when(repository.findById(1L))
@@ -194,8 +194,6 @@ public class FeedbackServiceImplTest {
                 () -> feedbackService
                         .getFeedbackById(1L));
 
-        assertThat(systemUnderTest
-                .getClass())
-                .isEqualTo(EntityNotFoundException.class);
+        assertThat(systemUnderTest.getClass()).isEqualTo(EntityNotFoundException.class);
     }
 }

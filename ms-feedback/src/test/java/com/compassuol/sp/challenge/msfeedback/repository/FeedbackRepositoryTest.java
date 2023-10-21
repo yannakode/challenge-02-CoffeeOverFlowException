@@ -34,6 +34,7 @@ public class FeedbackRepositoryTest {
         List<Feedback> sut = repository.findAll();
         assertThat(sut).isEqualTo(FEEDBACK_LIST);
     }
+
     @Test
     public void deleteFeedbackById_WithValidId_DeletesFeedback() {
         long feedbackId = 1L;
