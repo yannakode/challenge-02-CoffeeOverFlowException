@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class FeedbackControllerTest {
@@ -52,5 +52,18 @@ public class FeedbackControllerTest {
 
         assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(sut.getBody()).isEqualTo(FEEDBACK_RESPONSE_DTO);
+    }
+    @Test
+    public void deleteFeedbackById_WithValidId_ReturnsNoContent() {
+        long feedbackId = 1L;
+
+        doNothing().when(feedbackService).deleteFeedbackById(feedbackId);
+
+        ResponseEntity<FeedbackResponseDto> sut = feedbackController.deleteFeedbackById(feedbackId);
+
+        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+        assertThat(sut.getBody()).isNull();
+
+        verify(feedbackService).deleteFeedbackById(feedbackId);
     }
 }

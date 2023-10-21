@@ -2,6 +2,7 @@ package com.compassuol.sp.challenge.msfeedback.service.impl;
 
 import com.compassuol.sp.challenge.msfeedback.enums.Scales;
 import com.compassuol.sp.challenge.msfeedback.exceptions.customExceptions.BusinessException;
+import com.compassuol.sp.challenge.msfeedback.exceptions.customExceptions.InvalidDataException;
 import com.compassuol.sp.challenge.msfeedback.model.dto.FeedbackRequestDto;
 import com.compassuol.sp.challenge.msfeedback.model.dto.FeedbackResponseDto;
 import com.compassuol.sp.challenge.msfeedback.model.entity.Feedback;
@@ -30,7 +31,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public List<FeedbackResponseDto> getAllFeedbacks() {
         List<Feedback> responseFeedBack = repository.findAll();
-        if(responseFeedBack.isEmpty()) throw new BusinessException("No feedback was found.");
+        if (responseFeedBack.isEmpty()) throw new BusinessException("No feedback was found.");
 
         List<FeedbackResponseDto> feedBackList = new ArrayList<>();
 
@@ -43,15 +44,16 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public FeedbackResponseDto createFeedback(FeedbackRequestDto feedBackRequestDto) {
         OrderResponseDTO orderByIdResponse = null;
-        try{
+        try {
             orderByIdResponse = proxy.getOrderById(feedBackRequestDto.getOrderId());
         } catch (FeignException ex) {
             throw new BusinessException("No order was found for the order_id provided");
         }
 
-        if(orderByIdResponse.getStatus().equals("CANCELED")) throw new BusinessException("It is not allowed to leave feedback on orders with status CANCELED");
+        if (orderByIdResponse.getStatus().equals("CANCELED"))
+            throw new BusinessException("It is not allowed to leave feedback on orders with status CANCELED");
 
-        try{
+        try {
             Scales.valueOf(feedBackRequestDto.getScale());
         } catch (IllegalArgumentException ex) {
             throw new BusinessException("The allowed satisfaction levels (scale) are: VERY_DISSATISFIED, DISSATISFIED, NEUTRAL, SATISFIED, VERY_ SATISFIED");
@@ -69,7 +71,12 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public void deleteFeedbackById(long id) {}
+    public void deleteFeedbackById(long id) {
+        if (id <= 0) throw new InvalidDataException("Id value must be not null and greater than zero", "id");
+        var feedbackOptional = repository.findById(id);
+        if (feedbackOptional.isEmpty()) throw new BusinessException("No feedback was found fot the id passed");
+        repository.deleteById(id);
+    }
 
     @Override
     public FeedbackResponseDto getFeedbackById(long feedbackId) {
