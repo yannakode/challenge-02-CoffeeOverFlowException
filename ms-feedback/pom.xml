@@ -81,7 +81,7 @@
 				<version>0.8.10</version>
 				<configuration>
 					<excludes>
-						<exclude>com/compassuol/sp/challenge/msproducts/ProductApplication.class</exclude>
+						<exclude>com/compassuol/sp/challenge/msfeedback/MsFeedbackApplication.class</exclude>
 					</excludes>
 				</configuration>
 				<executions>

@@ -6,5 +6,9 @@ VALUES (4, 'O produto superou minhas expectativas',1),
 <<<<<<< HEAD
        (0, 'O produto é péssimo e não funcionou', 7);
 =======
+<<<<<<< HEAD
+       (0, 'O produto é péssimo e não funcionou', 7);
+=======
        (0, 'O produto é péssimo e não funcionou', 7);
 >>>>>>> 6874964 (feat: get functionality by feedback id)
+>>>>>>> ed15c37b15c4564c9b7543196208a56ed0389189

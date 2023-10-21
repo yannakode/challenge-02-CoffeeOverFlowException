@@ -8,7 +8,6 @@ spring:
     password: root
     url: jdbc:mysql://localhost:3306/db_ecommerce?createDatabaseIfNotExist=true&serverTimezone=UTC
     username: root
-
   jpa:
     hibernate:
       ddl-auto: update

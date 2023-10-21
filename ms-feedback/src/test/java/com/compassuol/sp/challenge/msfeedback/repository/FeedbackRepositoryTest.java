@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class FeedbackRepositoryTest {
@@ -20,10 +20,12 @@ public class FeedbackRepositoryTest {
     private FeedbackRepository repository;
 
     @Test
-    public void createOrder_WithValidData_ReturnsOrder() {
+    public void saveFeedback_WithValidData_ReturnsFeedback() {
         when(repository.save(FEEDBACK)).thenReturn(FEEDBACK);
-        Feedback sut = repository.save(FEEDBACK);
-        assertThat(sut).isEqualTo(FEEDBACK);
+
+        Feedback savedFeedback = repository.save(FEEDBACK);
+
+        assertThat(savedFeedback).isEqualTo(FEEDBACK);
     }
 
     @Test
@@ -31,6 +33,17 @@ public class FeedbackRepositoryTest {
         when(repository.findAll()).thenReturn(FEEDBACK_LIST);
         List<Feedback> sut = repository.findAll();
         assertThat(sut).isEqualTo(FEEDBACK_LIST);
+    }
+
+    @Test
+    public void deleteFeedbackById_WithValidId_DeletesFeedback() {
+        long feedbackId = 1L;
+
+        doNothing().when(repository).deleteById(feedbackId);
+
+        repository.deleteById(feedbackId);
+
+        verify(repository).deleteById(feedbackId);
     }
 
     @Test
