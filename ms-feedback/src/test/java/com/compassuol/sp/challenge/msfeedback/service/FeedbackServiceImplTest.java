@@ -132,7 +132,7 @@ public class FeedbackServiceImplTest {
     }
 
     @Test
-    void getAllFeedbacks_ReturnsFeedback() {
+    void getAllFeedbacks_ReturnsListOfFeedback() {
         when(repository.findAll()).thenReturn(List.of(FEEDBACK));
         when(assembler.toDto(FEEDBACK)).thenReturn(FEEDBACK_RESPONSE_DTO);
 
