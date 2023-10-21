@@ -11,6 +11,7 @@ import com.compassuol.sp.challenge.msfeedback.response.OrderResponseDTO;
 import com.compassuol.sp.challenge.msfeedback.service.FeedbackService;
 import com.compassuol.sp.challenge.msfeedback.service.assembler.FeedbackDtoAssembler;
 import feign.FeignException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -37,11 +38,6 @@ public class FeedbackServiceImpl implements FeedbackService {
             feedBackList.add(assembler.toDto(feedback));
         });
         return feedBackList;
-    }
-
-    @Override
-    public FeedbackResponseDto getFeedbackById(long feedbackId) {
-        return null;
     }
 
     @Override
@@ -73,7 +69,14 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public void deleteFeedbackById(long id) {
+    public void deleteFeedbackById(long id) {}
 
+    @Override
+    public FeedbackResponseDto getFeedbackById(long feedbackId) {
+        var feedBackFound = repository
+                .findById(feedbackId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        return assembler.toDto(feedBackFound);
     }
 }
