@@ -66,21 +66,4 @@ public class FeedbackControllerTest {
         assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(sut.getBody()).isEqualTo(FEEDBACK_RESPONSE_DTO);
     }
-<<<<<<< HEAD
-
-=======
-    @Test
-    public void deleteFeedbackById_WithValidId_ReturnsNoContent() {
-        long feedbackId = 1L;
-
-        doNothing().when(feedbackService).deleteFeedbackById(feedbackId);
-
-        ResponseEntity<FeedbackResponseDto> sut = feedbackController.deleteFeedbackById(feedbackId);
-
-        assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
-        assertThat(sut.getBody()).isNull();
-
-        verify(feedbackService).deleteFeedbackById(feedbackId);
-    }
->>>>>>> 85b9e89 (Added more tests)
 }

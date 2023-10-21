@@ -3,7 +3,6 @@ package com.compassuol.sp.challenge.msfeedback.service;
 
 import static com.compassuol.sp.challenge.msfeedback.commons.FeedbacksConstants.*;
 
-import com.compassuol.sp.challenge.msfeedback.commons.FeedbacksConstants;
 import com.compassuol.sp.challenge.msfeedback.exceptions.customExceptions.BusinessException;
 import com.compassuol.sp.challenge.msfeedback.exceptions.customExceptions.InvalidDataException;
 import com.compassuol.sp.challenge.msfeedback.model.dto.FeedbackResponseDto;
@@ -23,22 +22,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-<<<<<<< HEAD
-
 import java.util.Optional;
 import java.util.List;
 
-=======
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Optional;
->>>>>>> 85b9e89 (Added more tests)
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.*;
+
 
 
 @ExtendWith(MockitoExtension.class)
@@ -138,6 +130,7 @@ public class FeedbackServiceImplTest {
             assertThat("It is not allowed to leave feedback on orders with status CANCELED").isEqualTo(e.getMessage());
         }
     }
+
     @Test
     void getAllFeedbacks_ReturnsFeedback() {
         when(repository.findAll()).thenReturn(List.of(FEEDBACK));
@@ -158,7 +151,6 @@ public class FeedbackServiceImplTest {
     }
 
     @Test
-
     public void deleteFeedbackById_withValidId_DeletesFeedback() {
         long feedbackId = 1L;
         when(repository.findById(feedbackId)).thenReturn(Optional.of(FEEDBACK));
@@ -167,6 +159,7 @@ public class FeedbackServiceImplTest {
 
         verify(repository, times(1)).deleteById(feedbackId);
     }
+
     @Test
     public void deleteFeedbackById_withInvalidId_ThrowsException() {
         long invalidId = 0L;
@@ -179,7 +172,8 @@ public class FeedbackServiceImplTest {
 
         verify(repository, never()).deleteById(invalidId);
     }
-    public void getFeedbackById_WithValidId_ReturnsProduct(){
+
+    public void getFeedbackById_WithValidId_ReturnsProduct() {
         var productTest = FEEDBACK;
         when(repository.findById(1L))
                 .thenReturn(Optional.of(productTest));
@@ -187,8 +181,8 @@ public class FeedbackServiceImplTest {
         var systemUnderTest = feedbackService
                 .getFeedbackById(1L);
 
-       assertThat(assembler.toDto(productTest))
-               .isEqualTo(systemUnderTest);
+        assertThat(assembler.toDto(productTest))
+                .isEqualTo(systemUnderTest);
     }
 
     @Test
@@ -203,26 +197,5 @@ public class FeedbackServiceImplTest {
         assertThat(systemUnderTest
                 .getClass())
                 .isEqualTo(EntityNotFoundException.class);
-    }
-    @Test
-    public void deleteFeedbackById_withValidId_DeletesFeedback() {
-        long feedbackId = 1L;
-        when(repository.findById(feedbackId)).thenReturn(Optional.of(FEEDBACK));
-
-        feedbackService.deleteFeedbackById(feedbackId);
-
-        verify(repository, times(1)).deleteById(feedbackId);
-    }
-    @Test
-    public void deleteFeedbackById_withInvalidId_ThrowsException() {
-        long invalidId = 0L;
-
-        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
-            feedbackService.deleteFeedbackById(invalidId);
-        });
-
-        assertThat(exception.getMessage()).isEqualTo("Id value must be not null and greater than zero");
-
-        verify(repository, never()).deleteById(invalidId);
     }
 }
