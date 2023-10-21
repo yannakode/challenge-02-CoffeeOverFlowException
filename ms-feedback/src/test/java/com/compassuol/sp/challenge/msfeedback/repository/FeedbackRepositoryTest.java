@@ -8,6 +8,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -21,5 +23,12 @@ public class FeedbackRepositoryTest {
         when(repository.save(FEEDBACK)).thenReturn(FEEDBACK);
         Feedback sut = repository.save(FEEDBACK);
         assertThat(sut).isEqualTo(FEEDBACK);
+    }
+
+    @Test
+    public void getAllOrders_WithValidData_ReturnsOrder() {
+        when(repository.findAll()).thenReturn(FEEDBACK_LIST);
+        List<Feedback> sut = repository.findAll();
+        assertThat(sut).isEqualTo(FEEDBACK_LIST);
     }
 }
