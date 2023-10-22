@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "msorders", url = "localhost:8000")
+@FeignClient(name = "msorders", url = "orders-service:8000")
 public interface OrderProxy {
     @GetMapping("/orders/{id}")
     public OrderResponseDTO getOrderById(@PathVariable("id") Long id);
