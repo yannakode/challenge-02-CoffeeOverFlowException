@@ -64,11 +64,6 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public FeedbackResponseDto updateFeedback(Long feedbackId, FeedbackRequestDto feedBackRequestDto) {
-        return null;
-    }
-
-    @Override
     public void deleteFeedbackById(long id) {
         if (id <= 0) throw new InvalidDataException("Id value must be not null and greater than zero", "id");
         var feedbackOptional = repository.findById(id);
@@ -83,5 +78,18 @@ public class FeedbackServiceImpl implements FeedbackService {
                 .orElseThrow(EntityNotFoundException::new);
 
         return assembler.toDto(feedBackFound);
+    }
+
+    @Override
+    public FeedbackResponseDto updateFeedback(Long feedbackId, FeedbackRequestDto feedBackRequestDto) {
+        var feedbackFound = getFeedbackById(feedbackId);
+        feedbackFound.setScale(feedBackRequestDto.getScale());
+        feedbackFound.setComment(feedBackRequestDto.getComment());
+
+        var model  = assembler.toModel(feedBackRequestDto);
+        model.setId(feedbackFound.getId());
+        model.setOrderId(feedbackFound.getOrderId());
+        repository.save(model);
+        return assembler.toDto(model);
     }
 }
