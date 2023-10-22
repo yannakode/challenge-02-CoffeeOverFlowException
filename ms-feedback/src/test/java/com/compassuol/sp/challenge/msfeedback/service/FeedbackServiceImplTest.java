@@ -196,4 +196,7 @@ public class FeedbackServiceImplTest {
 
         assertThat(systemUnderTest.getClass()).isEqualTo(EntityNotFoundException.class);
     }
+
+    @Test
+    public void updateFeedback_WithValid_ReturnsFeedback(){}
 }
