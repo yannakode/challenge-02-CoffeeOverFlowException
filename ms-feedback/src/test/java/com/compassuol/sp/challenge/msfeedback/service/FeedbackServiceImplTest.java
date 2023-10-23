@@ -199,7 +199,7 @@ public class FeedbackServiceImplTest {
     }
 
     @Test
-    public void updateFeedback_WithValid_ReturnsFeedback(){
+    public void updateFeedback_WithValidData_ReturnsFeedback(){
         var feedbackId = 1L;
 
         when(repository.findById(feedbackId)).thenReturn(Optional.of(FEEDBACK));
