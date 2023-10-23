@@ -200,7 +200,7 @@ public class FeedbackServiceImplTest {
 
     @Test
     public void updateFeedback_WithValid_ReturnsFeedback(){
-        Long feedbackId = 1L;
+        var feedbackId = 1L;
 
         when(repository.findById(feedbackId)).thenReturn(Optional.of(FEEDBACK));
         when(repository.save(any(Feedback.class))).thenAnswer(i -> i.getArguments()[0]);
