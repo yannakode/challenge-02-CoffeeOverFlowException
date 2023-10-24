@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "fcb3bbd9-1f2b-4d32-992a-dc0b2e0a7699",
+		"name": "msproducts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23582885"
+	},
+	"item": [
+		{
+			"name": "POST products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Product name\",\n  \"description\": \"Product description\",\n  \"value\": 10.5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/products"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT products",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"Product name updated\",\n        \"value\": 499.99,\n        \"description\": \"Óculos inteligentes com realidade aumentada.\"\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/products/11"
+			},
+			"response": []
+		},
+		{
+			"name": "GET products by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Product name\",\n    \"value\": 10.5,\n    \"description\": \"Product description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/products"
+			},
+			"response": []
+		},
+		{
+			"name": "GET all products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/products"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE product by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/products/1"
+			},
+			"response": []
+		}
+	]
+}
