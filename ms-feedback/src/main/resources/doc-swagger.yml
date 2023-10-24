@@ -1,0 +1,141 @@
+openapi: 3.0.1
+info:
+  title: Feedback Microservice
+  version: v1
+  description: Microservice created for the second challenge of the Compass UOL scholarship program.
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: http://localhost:8100
+    description: Generated server url
+tags:
+  - name: Feedbacks route
+    description: Feedback management
+paths:
+  /feedbacks:
+    post:
+      tags:
+        - Feedbacks route
+      summary: Create new feedback
+      description: Insert new feedback into the database
+      operationId: createFeedback
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackRequestDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BAD REQUEST
+        "404":
+          description: NOT FOUND
+        "409":
+          description: CONFLICT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackResponseDto'
+  /feedbacks/{id}:
+    get:
+      tags:
+        - Feedbacks route
+      summary: Get feedback by id
+      description: Retrieve feedback from the database by id
+      operationId: getFeedbackById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackResponseDto'
+        "404":
+          description: NOT FOUND
+    put:
+      tags:
+        - Feedbacks route
+      summary: Update feedback by id
+      description: Update an existing feedback by id
+      operationId: updateFeedbackById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackRequestDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BAD REQUEST
+        "404":
+          description: NOT FOUND
+        "409":
+          description: CONFLICT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackResponseDto'
+    delete:
+      tags:
+        - Feedbacks route
+      summary: Delete feedback by id
+      operationId: deleteFeedbackById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: BAD REQUEST
+        "404":
+          description: NOT FOUND
+components:
+  schemas:
+    FeedbackRequestDto:
+      type: object
+      properties:
+        scale:
+          type: string
+        comment:
+          type: string
+        orderId:
+          type: integer
+          format: int64
+    FeedbackResponseDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        scale:
+          type: string
+        comment:
+          type: string
+        orderId:
+          type: integer
+          format: int64

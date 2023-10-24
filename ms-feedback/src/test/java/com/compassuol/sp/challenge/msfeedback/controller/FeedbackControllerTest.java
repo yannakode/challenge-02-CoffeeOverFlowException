@@ -2,6 +2,7 @@ package com.compassuol.sp.challenge.msfeedback.controller;
 
 import static com.compassuol.sp.challenge.msfeedback.commons.FeedbacksConstants.*;
 
+import com.compassuol.sp.challenge.msfeedback.model.dto.FeedbackRequestDto;
 import com.compassuol.sp.challenge.msfeedback.model.dto.FeedbackResponseDto;
 import com.compassuol.sp.challenge.msfeedback.service.impl.FeedbackServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -65,5 +66,16 @@ public class FeedbackControllerTest {
 
         assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(sut.getBody()).isEqualTo(FEEDBACK_RESPONSE_DTO);
+    }
+    @Test
+    public void updateFeedback_WithValidData_ReturnsOk() {
+        when(feedbackService.updateFeedback(FEEDBACK.getId(), FEEDBACK_REQUEST_DTO)).thenReturn(FEEDBACK_RESPONSE_DTO);
+
+        ResponseEntity<FeedbackResponseDto> response = feedbackController.putFeedback(FEEDBACK.getId(), FEEDBACK_REQUEST_DTO);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isEqualTo(FEEDBACK_RESPONSE_DTO);
+
+        verify(feedbackService).updateFeedback(FEEDBACK.getId(), FEEDBACK_REQUEST_DTO);
     }
 }

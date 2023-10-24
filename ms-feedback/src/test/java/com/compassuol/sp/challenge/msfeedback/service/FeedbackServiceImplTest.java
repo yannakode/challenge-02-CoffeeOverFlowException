@@ -26,6 +26,7 @@ import java.util.Optional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
@@ -195,5 +196,20 @@ public class FeedbackServiceImplTest {
                         .getFeedbackById(1L));
 
         assertThat(systemUnderTest.getClass()).isEqualTo(EntityNotFoundException.class);
+    }
+
+    @Test
+    public void updateFeedback_WithValidData_ReturnsFeedback(){
+        var feedbackId = 1L;
+
+        when(repository.findById(feedbackId)).thenReturn(Optional.of(FEEDBACK));
+        when(repository.save(any(Feedback.class))).thenAnswer(i -> i.getArguments()[0]);
+        when(assembler.toDto(any(Feedback.class))).thenAnswer(i -> new FeedbackResponseDto());
+
+        var response = feedbackService.updateFeedback(feedbackId, FEEDBACK_REQUEST_DTO);
+
+        assertNotNull(response);
+        verify(repository).findById(feedbackId);
+        verify(repository).save(any(Feedback.class));
     }
 }
