@@ -1,0 +1,251 @@
+openapi: 3.0.1
+info:
+  title: Order Microservice
+  version: v1
+  description: Microservice created for the second challenge of the Compass UOL scholarship program.
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: http://localhost:8000
+  description: Generated server url
+tags:
+  - name: Orders route
+    description: Order management
+paths:
+  /orders/{id}:
+    get:
+      tags:
+      - Orders route
+      summary: Search order by id
+      description: Search for order in the database by id
+      operationId: getOrderById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderResponseDTO'
+        "404":
+          description: NOT FOUND
+
+
+    put:
+      tags:
+      - Orders route
+      summary: Updates existing orders
+      description: Update an existing order by id
+      operationId: updateProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderRequestDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderResponseDTO'
+        "400":
+          description: BAD REQUEST
+
+  /orders:
+    get:
+      tags:
+      - Orders route
+      summary: View all orders
+      description: View orders sorted by creation date and optionally sort by status
+      operationId: getAllOrders
+      parameters:
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderResponseDTO'
+        "400":
+          description: BAD REQUEST
+    post:
+      tags:
+      - Orders route
+      summary: Insert new orders
+      description: Insert new order into the database
+      operationId: createOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequestDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderResponseDTO'
+        "400":
+          description: BAD REQUEST
+
+  /orders/{id}/cancel:
+    post:
+      tags:
+        - Orders route
+      summary: Cancel order
+      description: Add canceled status to the order and reason and date of cancellation.
+      operationId: cancelOrder
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelOrderRequestDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderResponseDTO'
+        "400":
+          description: BAD REQUEST
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+        number:
+          type: integer
+          format: int32
+        complement:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+    ProductOrderDTO:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          format: int32
+        product_id:
+          type: integer
+          format: int64
+    UpdateOrderRequestDTO:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductOrderDTO'
+        address:
+          $ref: '#/components/schemas/Address'
+        id:
+          type: integer
+          format: int64
+        status:
+          type: string
+        payment_method:
+          type: string
+    OrderResponseDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductOrderDTO'
+        address:
+          $ref: '#/components/schemas/Address'
+        paymentMethod:
+          type: string
+          enum:
+          - CREDIT_CARD
+          - BANK_TRANSFER
+          - CRYPTOCURRENCY
+          - GIFT_CARD
+          - PIX
+          - OTHER
+        subtotalValue:
+          type: number
+          format: double
+        discount:
+          type: number
+          format: double
+        totalValue:
+          type: number
+          format: double
+        createdDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+          - CONFIRMED
+          - SENT
+          - CANCELED
+        updateDate:
+          type: string
+          format: date-time
+        cancelDate:
+          type: string
+          format: date-time
+        cancelReason:
+          type: string
+    OrderRequestDTO:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductOrderDTO'
+        address:
+          $ref: '#/components/schemas/Address'
+        payment_method:
+          type: string
+    CancelOrderRequestDTO:
+      type: object
+      properties:
+        cancelReason:
+          type: string
