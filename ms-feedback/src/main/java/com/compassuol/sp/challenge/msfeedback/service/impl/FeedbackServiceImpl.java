@@ -64,11 +64,6 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public FeedbackResponseDto updateFeedback(Long feedbackId, FeedbackRequestDto feedBackRequestDto) {
-        return null;
-    }
-
-    @Override
     public void deleteFeedbackById(long id) {
         if (id <= 0) throw new InvalidDataException("Id value must be not null and greater than zero", "id");
         var feedbackOptional = repository.findById(id);
@@ -83,5 +78,33 @@ public class FeedbackServiceImpl implements FeedbackService {
                 .orElseThrow(EntityNotFoundException::new);
 
         return assembler.toDto(feedBackFound);
+    }
+
+
+
+    @Override
+    public FeedbackResponseDto updateFeedback(Long feedbackId, FeedbackRequestDto feedBackRequestDto) {
+        var feedbackFound = repository.findById(feedbackId);
+
+        if(feedbackFound.isEmpty()) throw new InvalidDataException("Feedback Id not found", "Id");
+        if(feedBackRequestDto.getComment() == null) throw new InvalidDataException("Comment field cannot be empty.", "comment");
+        if(feedBackRequestDto.getScale() == null) throw new InvalidDataException("Scale field cannot be empty.", "comment");
+        if(feedBackRequestDto.getOrderId() <= 0) throw new InvalidDataException("Order id must be greater than zero", "OrderId");
+
+        if(feedBackRequestDto.getScale().equals("CANCELED")) throw new BusinessException("It is not allowed to leave feedback on orders with status CANCELED");
+        try{
+            Scales.valueOf(feedBackRequestDto.getScale());
+        } catch (IllegalArgumentException ex) {
+            throw new BusinessException("The allowed satisfaction levels (scale) are: VERY_DISSATISFIED, DISSATISFIED, NEUTRAL, SATISFIED, VERY_ SATISFIED");
+        }
+
+        var originalFeedback = feedbackFound.get();
+        originalFeedback.setComment(feedBackRequestDto.getComment());
+        Scales scaleEnum = Scales.valueOf(feedBackRequestDto.getScale());
+        originalFeedback.setScale(scaleEnum);
+        originalFeedback.setOrderId(feedBackRequestDto.getOrderId());
+        repository.save(originalFeedback);
+
+        return assembler.toDto(originalFeedback);
     }
 }

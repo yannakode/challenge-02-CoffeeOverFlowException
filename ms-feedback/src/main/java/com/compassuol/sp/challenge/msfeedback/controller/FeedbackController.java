@@ -42,4 +42,11 @@ public class FeedbackController {
         );
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<FeedbackResponseDto> putFeedback(@PathVariable long id, @RequestBody FeedbackRequestDto body){
+        return ResponseEntity.ok(
+                feedbackService.updateFeedback(id, body)
+        );
+    }
+
 }
