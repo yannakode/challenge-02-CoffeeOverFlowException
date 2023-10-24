@@ -1,0 +1,20 @@
+INSERT IGNORE INTO feedback_tb (id, comment, order_id, scale)
+values  (3, 'O produto é de boa qualidade e atendeu minhas necessidades', 2, 3),
+        (4, 'O produto é razoável, mas não me impressionou', 3, 2),
+        (5, 'O produto é de baixa qualidade e apresentou defeitos', 6, 1),
+        (6, 'O produto é péssimo e não funcionou', 7, 0),
+        (7, 'O produto superou minhas expectativas', 1, 4),
+        (8, 'O produto é de boa qualidade e atendeu minhas necessidades', 2, 3),
+        (9, 'O produto é razoável, mas não me impressionou', 3, 2),
+        (10, 'O produto é de baixa qualidade e apresentou defeitos', 6, 1),
+        (11, 'O produto é péssimo e não funcionou', 7, 0),
+        (12, 'O produto superou minhas expectativas', 1, 4),
+        (13, 'O produto é de boa qualidade e atendeu minhas necessidades', 2, 3),
+        (14, 'O produto é razoável, mas não me impressionou', 3, 2),
+        (15, 'O produto é de baixa qualidade e apresentou defeitos', 6, 1),
+        (16, 'O produto é péssimo e não funcionou', 7, 0),
+        (17, 'O produto superou minhas expectativas', 1, 4),
+        (18, 'O produto é de boa qualidade e atendeu minhas necessidades', 2, 3),
+        (19, 'O produto é razoável, mas não me impressionou', 3, 2),
+        (20, 'O produto é de baixa qualidade e apresentou defeitos', 6, 1);
+
