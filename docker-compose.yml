@@ -9,6 +9,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=db_ecommerce
+
   products-service:
     restart: always
     build:
@@ -20,6 +21,31 @@ services:
       - spring-boot-mysql-network
     depends_on:
       - mysql-service
+
+  orders-service:
+    restart: always
+    build:
+      context: .
+      dockerfile: msorders/Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - spring-boot-mysql-network
+    depends_on:
+      - mysql-service
+
+  feedbacks-service:
+    restart: always
+    build:
+      context: .
+      dockerfile: ms-feedback/Dockerfile
+    ports:
+      - "8100:8100"
+    networks:
+      - spring-boot-mysql-network
+    depends_on:
+      - mysql-service
+
 networks:
   spring-boot-mysql-network:
     driver: bridge
