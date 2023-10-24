@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: ms-product
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql-service:3306/db_ecommerce?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL8Dialect
+      defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+      continue-on-error: true
+
+#  springdoc:
+#    show-actuator: true
+#    api-docs:
+#      path:
