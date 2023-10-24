@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "6793b31e-d2f9-44f4-a34f-f19268a38ccb",
+		"name": "msfeedback",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23582885"
+	},
+	"item": [
+		{
+			"name": "POST feedback",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"products\": [\n        {\n            \"quantity\": 1,\n            \"product_id\": 10\n        },\n        {\n            \"quantity\": 2,\n            \"product_id\": 3\n        }\n    ],\n  \"address\": {\n    \"street\": \"Rua nove\",\n    \"number\": 26,\n    \"postalCode\": \"56332016\"\n  },\n  \"payment_method\": \"CREDIT_CARD\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8100/feedbacks"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT feedback",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"scale\": \"VERY_SATISFIED\",\n    \"comment\": \"bEM LEGAL\",\n    \"order_id\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8100/feedbacks/3"
+			},
+			"response": []
+		},
+		{
+			"name": "GET all feedbacks",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8100/feedbacks"
+			},
+			"response": []
+		},
+		{
+			"name": "GET feedback by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8100/feedbacks/1"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE feedback by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8100/feedbacks/4"
+			},
+			"response": []
+		}
+	]
+}

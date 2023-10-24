@@ -2,7 +2,7 @@ server:
   port: 8100
 spring:
   application:
-    name: ms-feedback
+    name: ms-feedbacks
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     password: root

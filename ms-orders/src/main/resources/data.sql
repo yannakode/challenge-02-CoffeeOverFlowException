@@ -1,4 +1,4 @@
-insert into order_tb (id, city, complement, number, postal_code, state, street, date, discount, payment_method, status, subtotal_value, total_value)
+INSERT IGNORE INTO order_tb (id, city, complement, number, postal_code, state, street, date, discount, payment_method, status, subtotal_value, total_value)
 values  (1, 'Brasília', '', 10, '70002900', 'DF', 'Esplanada dos Ministérios', '2023-10-16 21:06:28', 0.05, 4, 0, 3299.88, 3134.89),
         (2, 'São Paulo', '', 10, '04578000', 'SP', 'Esplanada dos Ministérios', '2023-10-16 21:07:06', 0, 5, 0, 499.99, 499.99),
         (3, 'Rio de Janeiro', 'de 3301 a 3977 - lado ímpar', 10, '22631003', 'RJ', 'Avenida Érico Veríssimo', '2023-10-16 21:08:34', 0, 0, 0, 269.98, 269.98),

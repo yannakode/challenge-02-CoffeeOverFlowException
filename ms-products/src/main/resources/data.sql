@@ -7,7 +7,7 @@ CREATE TABLE products_tb (
                              CONSTRAINT check_value_positive CHECK (value > 0)
 );
 
-INSERT INTO products_tb (name, value, description)
+INSERT IGNORE INTO products_tb (name, value, description)
 VALUES
     ('SmartGlasses ProView X2', 499.99, 'Óculos inteligentes com realidade aumentada.'),
     ('HealthGuard BioTracker', 89.99, 'Monitor de saúde com rastreamento de batimentos cardíacos e oxigênio no sangue.'),

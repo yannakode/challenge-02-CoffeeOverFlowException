@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "9754ec64-f175-42e6-8346-d32b778bf54b",
+		"name": "msorders",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23582885"
+	},
+	"item": [
+		{
+			"name": "POST orders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"products\": [\n        {\n            \"quantity\": 2,\n            \"product_id\": 3\n        }\n    ],\n  \"address\": {\n    \"street\": \"Teste\",\n    \"number\": 26,\n    \"postalCode\": \"56300000\"\n  },\n  \"payment_method\": \"PIX\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/orders"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT orders",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"products\": [\n        {\n            \"quantity\": 1,\n            \"product_id\": 10\n        },\n        {\n            \"quantity\": 2,\n            \"product_id\": 3\n        }\n    ],\n  \"address\": {\n    \"street\": \"Rua nove\",\n    \"number\": 26,\n    \"postalCode\": \"56332016\"\n  },\n  \"payment_method\": \"CREDIT_CARD\",\n  \"status\": \"SENT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/orders/16"
+			},
+			"response": []
+		},
+		{
+			"name": "POST orders(cancel)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cancelReason\": \"Cancel reason\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/orders/1/cancel"
+			},
+			"response": []
+		},
+		{
+			"name": "GET orders by Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cancelReason\": \"Cancel reason\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/orders/1"
+			},
+			"response": []
+		},
+		{
+			"name": "GET all orders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/orders"
+			},
+			"response": []
+		}
+	]
+}
